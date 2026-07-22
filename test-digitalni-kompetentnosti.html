@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Тест: Дигитални компетентности</title>
+<style>
+  :root{
+    --bg:#0f1115;
+    --card:#171a21;
+    --accent:#5b8cff;
+    --accent2:#7ee8b5;
+    --text:#e8eaf0;
+    --muted:#9aa3b2;
+    --correct:#2ecc71;
+    --wrong:#ff5c5c;
+    --border:#2a2f3a;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",Roboto,Arial,sans-serif;
+    background:linear-gradient(180deg,#0f1115,#141822);
+    color:var(--text);
+    padding:24px 12px 80px;
+  }
+  .wrap{max-width:820px;margin:0 auto;}
+  header{
+    text-align:center;
+    margin-bottom:28px;
+  }
+  h1{
+    font-size:1.6rem;
+    margin:0 0 6px;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .sub{color:var(--muted);font-size:0.95rem;}
+  .brand{
+    display:inline-block;
+    font-size:0.78rem;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#0f1115;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    padding:4px 14px;
+    border-radius:20px;
+    margin-bottom:12px;
+  }
+  .site-footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:0.8rem;
+    margin:26px 0 90px;
+  }
+  .brand-inline{
+    color:var(--accent2);
+    font-weight:800;
+  }
+  .progress-bar{
+    position:sticky;top:0;
+    background:rgba(15,17,21,0.9);
+    backdrop-filter:blur(6px);
+    padding:10px 0;
+    z-index:10;
+    border-bottom:1px solid var(--border);
+    margin-bottom:20px;
+  }
+  .progress-track{
+    height:8px;border-radius:6px;background:var(--border);overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    transition:width .3s ease;
+  }
+  .progress-text{
+    display:flex;justify-content:space-between;
+    font-size:0.8rem;color:var(--muted);margin-top:6px;
+  }
+  .live-level{
+    margin-top:8px;
+    text-align:center;
+    font-size:0.85rem;
+    font-weight:700;
+    padding:6px 0;
+    border-top:1px dashed var(--border);
+    color:var(--muted);
+  }
+  .live-level .lv-count{color:var(--text);}
+  .live-level .lv-tag{
+    display:inline-block;
+    margin-left:6px;
+    padding:2px 10px;
+    border-radius:12px;
+  }
+  .live-level .lv-tag.foundation{background:rgba(154,163,178,0.18);color:var(--muted);}
+  .live-level .lv-tag.intermediate{background:rgba(91,140,255,0.18);color:var(--accent);}
+  .live-level .lv-tag.advanced{background:rgba(46,204,113,0.18);color:var(--correct);}
+  .live-level .lv-tag.highly{background:rgba(255,193,7,0.18);color:#ffc107;}
+  .section-title{
+    margin:32px 0 14px;
+    font-size:1rem;
+    color:var(--accent2);
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    border-left:3px solid var(--accent2);
+    padding-left:10px;
+  }
+  .question{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:18px 18px 14px;
+    margin-bottom:16px;
+    transition:border-color .2s ease;
+  }
+  .question.answered{border-color:var(--border);}
+  .q-title{
+    font-weight:600;
+    margin-bottom:12px;
+    line-height:1.4;
+  }
+  .q-num{color:var(--accent);margin-right:6px;}
+  .options{display:flex;flex-direction:column;gap:8px;}
+  .opt{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    cursor:pointer;
+    transition:background .15s ease, border-color .15s ease;
+    font-size:0.95rem;
+  }
+  .opt:hover{background:#1e2330;}
+  .opt input{margin-top:3px;accent-color:var(--accent);}
+  .opt.correct{
+    border-color:var(--correct);
+    background:rgba(46,204,113,0.12);
+  }
+  .opt.wrong{
+    border-color:var(--wrong);
+    background:rgba(255,92,92,0.12);
+  }
+  .opt.missed{
+    border-color:var(--correct);
+    background:rgba(46,204,113,0.05);
+    box-shadow:inset 0 0 0 1px var(--correct);
+  }
+  .opt.disabled{cursor:default;}
+  .check-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-top:12px;
+  }
+  .check-btn{
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    color:#0f1115;
+    border:none;
+    padding:8px 18px;
+    border-radius:20px;
+    font-weight:700;
+    font-size:0.85rem;
+    cursor:pointer;
+  }
+  .check-btn:disabled{opacity:0.35;cursor:default;}
+  .feedback{
+    font-size:0.85rem;
+    font-weight:700;
+  }
+  .feedback.ok{color:var(--correct);}
+  .feedback.bad{color:var(--wrong);}
+  .multi-tag{
+    display:inline-block;
+    font-size:0.7rem;
+    font-weight:700;
+    color:var(--accent2);
+    border:1px solid var(--accent2);
+    border-radius:10px;
+    padding:1px 8px;
+    margin-left:8px;
+    vertical-align:middle;
+  }
+  .footer-bar{
+    position:fixed;
+    bottom:0;left:0;right:0;
+    background:rgba(15,17,21,0.95);
+    backdrop-filter:blur(8px);
+    border-top:1px solid var(--border);
+    padding:14px 16px;
+    display:flex;
+    justify-content:center;
+    gap:14px;
+  }
+  button{
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    color:#0f1115;
+    border:none;
+    padding:12px 26px;
+    border-radius:30px;
+    font-weight:700;
+    font-size:0.95rem;
+    cursor:pointer;
+    transition:transform .15s ease, opacity .15s ease;
+  }
+  button:hover{transform:translateY(-2px);}
+  button.secondary{
+    background:transparent;
+    color:var(--text);
+    border:1px solid var(--border);
+  }
+  #result{
+    display:none;
+    text-align:center;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:28px 20px;
+    margin-top:20px;
+  }
+  #result .score{
+    font-size:2.4rem;
+    font-weight:800;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  #result p{color:var(--muted);}
+  .badge{
+    display:inline-block;
+    margin-top:10px;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:0.85rem;
+    font-weight:700;
+  }
+  .badge.great{background:rgba(46,204,113,0.15);color:var(--correct);}
+  .badge.ok{background:rgba(91,140,255,0.15);color:var(--accent);}
+  .badge.low{background:rgba(255,92,92,0.15);color:var(--wrong);}
+  #sectionLevels{
+    margin-top:22px;
+    text-align:left;
+    border-top:1px solid var(--border);
+    padding-top:16px;
+  }
+  .level-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:9px 4px;
+    border-bottom:1px solid var(--border);
+    font-size:0.88rem;
+    gap:10px;
+  }
+  .level-row:last-child{border-bottom:none;}
+  .level-name{color:var(--text);flex:1;}
+  .level-score{color:var(--muted);white-space:nowrap;}
+  .level-tag{
+    white-space:nowrap;
+    font-weight:700;
+    font-size:0.75rem;
+    padding:3px 10px;
+    border-radius:12px;
+  }
+  .level-tag.foundation{background:rgba(154,163,178,0.18);color:var(--muted);}
+  .level-tag.intermediate{background:rgba(91,140,255,0.18);color:var(--accent);}
+  .level-tag.advanced{background:rgba(46,204,113,0.18);color:var(--correct);}
+  .level-tag.highly{background:rgba(255,193,7,0.18);color:#ffc107;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">DimitTech</div>
+    <h1>Тест: Дигитални компетентности</h1>
+    <div class="sub">Режим на тренировка: отговорете и натиснете „Провери“ за всеки въпрос поотделно. Някои въпроси имат повече от един верен отговор.</div>
+  </header>
+
+  <div class="progress-bar">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-text"><span id="progressLabel">Отговорени: 0 / 0</span><span id="progressPct">0%</span></div>
+    <div class="live-level" id="liveLevel"></div>
+  </div>
+
+  <div id="quiz"></div>
+
+  <div id="result">
+    <div class="score" id="scoreText">0%</div>
+    <p id="scoreDetail"></p>
+    <div class="badge" id="scoreBadge"></div>
+    <div id="sectionLevels"></div>
+  </div>
+
+  <div class="site-footer">Изготвено от <span class="brand-inline">DimitTech</span></div>
+</div>
+
+<div class="footer-bar">
+  <button class="secondary" id="resetBtn">Нулирай</button>
+  <button id="submitBtn">Обобщение на резултата</button>
+</div>
+
+<script>
+const sections = [
+{
+  title: "Информация и данни",
+  questions: [
+    { q:"Кой термин означава компютърна инфраструктура, изградена от отдалечени ресурси на много компютри, за решаване на обща изчислителна задача?", opts:["Cloud computing","Grid компютинг","Middleware","SaaS"], correct:1 },
+    { q:"Кои от изброените са ОСНОВАТЕЛИ на Grid консорциума в България? (изберете всички верни)", opts:["Софийски университет","Институтът за паралелна обработка на информация (ИПОИ)","Институтът за ядрени изследвания и ядрена енергетика (ИЯИЯЕ)","Пловдивски университет"], multi:true, correct:[1,2] },
+    { q:"Кой облачен модел предоставя на клиента готови софтуерни приложения по интернет?", opts:["IaaS","PaaS","SaaS","Middleware"], correct:2 },
+    { q:"Кой тип облак е предназначен само за самостоятелна организация, без споделяне на информация с други?", opts:["Публичен облак","Частен облак","Хибриден облак","Обществен облак"], correct:1 },
+    { q:"Коя облачна услуга предлага 15 GB безплатно пространство и е разработена от Google?", opts:["OneDrive","Dropbox","Google Drive","SharePoint"], correct:2 },
+    { q:"Какво е RSS?", opts:["Вид зловреден софтуер","Начин за бърз достъп до новини и актуализации без посещение на сайта","Протокол за електронна поща","Вид облачно хранилище"], correct:1 },
+    { q:"Как се нарича информация, която не е истина и се създава и споделя умишлено с цел причиняване на вреда?", opts:["Невярна информация","Дезинформация","Операция за влияние","Спам"], correct:1 },
+    { q:"Какво е „спим“ (SPIM)?", opts:["Спам чрез програми за разговори в реално време","Вид фишинг атака","Тип вирус","Метод за криптиране"], correct:0 },
+    { q:"Кой сайт е посочен в материалите като платформа за проверка на фалшиви новини в България?", opts:["snopes.com","factcheck.bg","afp.com","poynter.org"], correct:1 },
+    { q:"Кои от изброените СА стъпки при оценяване на достоверността на получена по електронен път информация? (изберете всички верни)", opts:["Установяване точността на информацията","Съпоставяне на фактите с други източници","Автоматично препращане на писмото до всички контакти","Проучване на компетентността на автора/институцията"], multi:true, correct:[0,1,3] },
+    { q:"Кой е примерен признак, че даден домейн в имейл адрес е подозрителен?", opts:["Домейнът съвпада с официалния сайт на организацията","Домейнът няма нищо общо с институцията, от чието име се пише", "Писмото идва от позната фирма", "Писмото е на кирилица"], correct:1 },
+    { q:"Какво представлява фишингът?", opts:["Метод за ускоряване на интернет връзката","Злонамерен подход за придобиване на чувствителни данни чрез фалшиви съобщения","Вид защитна стена","Официална банкова услуга"], correct:1 },
+    { q:"Кой облачен модел предоставя на клиента изчислителна мощ, дисково пространство и памет, върху които сам инсталира софтуер?", opts:["SaaS","PaaS","IaaS","Middleware"], correct:2 },
+    { q:"Кой е типичен пример за виртуална организация, използваща Grid технологии в научноизследователската област?", opts:["CERN","Amazon","Microsoft","LinkedIn"], correct:0 },
+    { q:"От кого и кога се смята, че е въведен терминът „cloud computing“?", opts:["Бил Гейтс, 1995 г.","Ерик Шмит (Google), 2006 г.","Стив Джобс, 2001 г.","Марк Зукърбърг, 2010 г."], correct:1 },
+    { q:"Кой облачен модел за разполагане се споделя от няколко организации, формиращи общност на базата на близки интереси?", opts:["Частен облак","Публичен облак","Хибриден облак","Обществен облак (Community Cloud)"], correct:3 },
+    { q:"Кое е основното разграничение между дезинформация и невярна информация (misinformation)?", opts:["Няма разлика между двете","Дезинформацията се разпространява умишлено с цел вреда, а невярната информация — без такова съзнание","Невярната информация винаги е по-опасна","Дезинформацията е само в социалните мрежи"], correct:1 },
+    { q:"Какво представлява т.нар. „дълбок фалшификат“ (deepfake)?", opts:["Класически печатен фалшив документ","Манипулирано видео или аудио, изглеждащо автентично", "Вид компютърен вирус","Метод за криптиране на съобщения"], correct:1 },
+    { q:"С какво е свързан оттегленият по-късно труд на Андрю Уейкфийлд от 1998 г.?", opts:["Твърдение за невярна връзка между ваксинация и аутизъм","Изследване на Grid технологии","Създаване на първата социална мрежа","Разработка на антивирусен софтуер"], correct:0 },
+    { q:"Кой е препоръчителен начин за проверка на надеждността на уебсайт?", opts:["Само по визуалния дизайн","Анализ на URL адреса за дребни промени спрямо оригиналния сайт (напр. nevvyorktimes.com)","Само по броя реклами", "Само по езика на сайта"], correct:1 }
+  ]
+},
+{
+  title: "Комуникация и сътрудничество",
+  questions: [
+    { q:"Кой вид комуникация позволява на участниците да четат и изпращат съобщения в различно време?", opts:["Синхронна","Асинхронна","Видеоконферентна","Мрежова"], correct:1 },
+    { q:"Коя платформа за видеоконферентна връзка поддържа безплатна версия с максимум 100 участници и 40 минути продължителност на сесия?", opts:["Skype","Google Meet","Zoom","Microsoft Teams"], correct:2 },
+    { q:"Коя функция на Zoom дава сигнал на организатора, че участник има въпрос, без да прекъсва срещата?", opts:["Анкети","„Вдигане на ръка“","Чат","Изключване на звука"], correct:1 },
+    { q:"Колко GB безплатно облачно пространство получава един човек с безплатната версия на Microsoft Teams?", opts:["1 GB","2 GB","5 GB","10 GB"], correct:1 },
+    { q:"Кой портал се използва за достъп до обществени консултации в България?", opts:["https://data.egov.bg","https://www.strategy.bg","https://portal.nra.bg","https://noi.bg"], correct:1 },
+    { q:"С какво (кой документ) се идентифицира гражданин при използване на портала на НАП?", opts:["Само с имейл адрес","С КЕП, ПИК на НАП или Е-Автентикация","Само с телефонен номер","Не се изисква идентификация"], correct:1 },
+    { q:"Кой закон в България регламентира заявяването и предоставянето на електронни административни услуги?", opts:["Закон за електронния документ и електронния подпис (ЗЕДЕП)","Закон за електронното управление (ЗЕУ)","Закон за администрацията (ЗА)","Закон за електронната идентификация (ЗЕИ)"], correct:1 },
+    { q:"Как се получава ПИК (персонален идентификационен код) на НАП?", opts:["Автоматично по имейл","Само в офис на НАП (лично, чрез пълномощник или посочено лице)","Чрез мобилно приложение без документи","Чрез регистрация само с ЕГН онлайн"], correct:1 },
+    { q:"Кое портал представлява т.нар. Единно звено за контакт (ЕЗК)?", opts:["egov.bg","psc.egov.bg","strategy.bg","noi.bg"], correct:1 },
+    { q:"Кой тип комуникация се осъществява от участниците по едно и също време (напр. видеоразговор или чат на живо)?", opts:["Асинхронна","Синхронна (в реално време)","Циркулярна","Едностранна"], correct:1 },
+    { q:"Кой е типичен пример за асинхронна комуникация?", opts:["Видеоразговор","Телефонно обаждане","Електронна поща","Чат на живо"], correct:2 },
+    { q:"Колко участници поддържа Zoom в една сесия според описаните възможности?", opts:["100","500","1000","5000"], correct:2 },
+    { q:"Какъв е максималният брой участници и продължителност на безплатна среща в Google Meet?", opts:["50 участници, 30 минути","100 участници, 60 минути","250 участници, 24 часа","10 участници, без ограничение"], correct:1 },
+    { q:"В какъв диапазон варира броят участници във видеоконференция чрез Microsoft Teams?", opts:["между 2 и 10","между 10 и 10 хиляди","само 1","между 100 и 200"], correct:1 },
+    { q:"Кои от изброените приложения позволяват безплатни телефонни и видео разговори в реално време? (изберете всички верни)", opts:["Skype","Viber","WhatsApp","Facebook Messenger"], multi:true, correct:[0,1,2,3] }
+  ]
+},
+{
+  title: "Споделяне на съдържание",
+  questions: [
+    { q:"Кой подход се използва при споделяне на папка в локална мрежа през File Explorer в Windows 10?", opts:["FTP","Sharing и Security табове от Properties","Task Manager","Device Manager"], correct:1 },
+    { q:"Каква е обичайната максимална големина на прикачен файл, приемана от повечето електронни пощи?", opts:["5 MB","20 MB (в някои случаи 25 MB)","100 MB","1 GB"], correct:1 },
+    { q:"Как се нарича облачната система, свързана с електронна поща abv.bg?", opts:["OneDrive","Google Диск","Dox.bg","iCloud"], correct:2 },
+    { q:"Кой тип платформи за споделяне на файлове предлагат само временно хранилище (напр. за 48 часа)?", opts:["pCloud, Sync.com","WeTransfer, File.io","Google Drive, OneDrive","Dropbox, Egnyte"], correct:1 },
+    { q:"Коя социална мрежа е дадена като пример за „споделяне на професионални контакти“?", opts:["Instagram","Pinterest","LinkedIn","TikTok"], correct:2 },
+    { q:"Каква е препоръчителната продължителност на видеовизитка?", opts:["Около 10 секунди","Около 1 минута","Поне 5 минути","Няма ограничение"], correct:1 },
+    { q:"Какъв лимит по подразбиране за размер на файл има Permission Level Read/Write при споделяне на папка в LAN?", opts:["Read позволява само четене, Read/Write добавя и модифициране","И двете забраняват четене","Read/Write е само за администратори","Няма разлика между тях"], correct:0 },
+    { q:"Какъв е лимитът за размер на единичен файл, който може да се качи в облачната система DOX?", opts:["300 MB","2 GB","20 GB","Без ограничение"], correct:1 },
+    { q:"Колко безплатно място за съхранение предлага стандартно Microsoft OneDrive?", opts:["2 GB","5 GB","15 GB","50 GB"], correct:1 },
+    { q:"Какъв е обичайният диапазон на безплатно пространство, предлагано от повечето облачни системи?", opts:["1–2 GB","5–15 GB","50–100 GB","над 500 GB"], correct:1 },
+    { q:"Коя социална мрежа е дадена като пример за споделяне на авторско съдържание – изображения, музика, видео?", opts:["About.me","LinkedIn","Flickr / Instagram / YouTube","Odnoklassniki"], correct:2 },
+    { q:"Към кой тип облачни услуги спада платформата WeTransfer?", opts:["Постоянно облачно хранилище","Временно хранилище за трансфер на големи файлове","Услуга само за видеоконферентна връзка","Услуга за електронна поща"], correct:1 },
+    { q:"Какъв е обичайният максимален размер на файл при изпращане през десктоп версии на приложения за текстови съобщения (напр. Вайбър, Скайп)?", opts:["До 20 MB","До 25 MB","Понякога до 200–300 MB","Без ограничение"], correct:2 },
+    { q:"Кои от изброените СА типове социални мрежи според характера и целите им (по материалите)? (изберете всички верни)", opts:["За споделяне на контакти (напр. LinkedIn)","За споделяне на предпочитания (напр. Pinterest)","За споделяне на авторско съдържание (напр. YouTube)","Изключително за онлайн пазаруване"], multi:true, correct:[0,1,2] }
+  ]
+},
+{
+  title: "Дигитална идентичност и поверителност",
+  questions: [
+    { q:"Как се нарича уникалният набор от проследими дигитални дейности на един потребител в интернет?", opts:["Дигитален паспорт","Дигитален отпечатък","Виртуална идентичност","IP профил"], correct:1 },
+    { q:"Кой вид „бисквитки“ (cookies) се изтриват автоматично при затваряне на браузъра?", opts:["Постоянни","Сесийни","HTTP","Флаш"], correct:1 },
+    { q:"Какви са двете основни цели на постоянните бисквитки?", opts:["Удостоверяване и проследяване","Криптиране и архивиране","Филтриране и блокиране","Архивиране и синхронизация"], correct:0 },
+    { q:"Кои от изброените СА препоръки за изграждане на положителна онлайн репутация? (изберете всички верни)", opts:["Създаване на съдържание","Постоянство в публикациите","Еднократна публикация и изчакване на резултат","Активност в социалните мрежи"], multi:true, correct:[0,1,3] },
+    { q:"Кой вид дигитална идентичност е свързан с уникален сериен номер на устройство?", opts:["Клиентска","Машинна","Транзакционна","Анонимна"], correct:1 },
+    { q:"Кой вид дигитална идентичност се създава за еднократна употреба (напр. за една сделка)?", opts:["Транзакционна","Организационна","Правителствена","Мрежова"], correct:0 },
+    { q:"Каква комбинация от клавиши отваря режим „Инкогнито“ в повечето браузъри?", opts:["Ctrl+Shift+N","Ctrl+Alt+I","Alt+Tab","Ctrl+P"], correct:0 }
+  ]
+},
+{
+  title: "Онлайн етикет",
+  questions: [
+    { q:"Как се нарича сборът от норми на поведение в интернет?", opts:["Протокол","Нетикет","Кодекс","Уеб стандарт"], correct:1 },
+    { q:"Какво индикира писане изцяло с главни букви според нетикета?", opts:["Учтивост","Официалност","Агресия/викане","Хумор"], correct:2 },
+    { q:"Кое е правилно относно темата на имейл съобщение при формално общуване?", opts:["Да е дълга и подробна","Да липсва, за да не изглежда като реклама","Да е кратка и ясна","Да съдържа само емотикони"], correct:2 },
+    { q:"Защо не трябва да се изтриват автоматичните „Re:“ и „Fwd:“ в темата на писмото?", opts:["Защото са задължителни по закон","Защото показват, че писмото е отговор или препратка","Защото пречат на спам филтрите","Нямат значение"], correct:1 },
+    { q:"Как се нарича Кодексът на поведение в Уикипедия?", opts:["Уикиетикет","Уикикодекс","Нетикет БГ","Правилник за редакция"], correct:0 }
+  ]
+},
+{
+  title: "Сигурност и защита на устройства",
+  questions: [
+    { q:"Кой вид атака цели да направи ресурс недостъпен чрез претоварване, използвайки множество координирани източници?", opts:["DoS","DDoS","Man-in-the-Middle","Речник атака"], correct:1 },
+    { q:"Какво представлява „ботнет“?", opts:["Мрежа от заразени устройства (зомбита), контролирани от нападател","Вид защитна стена","Антивирусна програма","Тип криптиране"], correct:0 },
+    { q:"Кой елемент филтрира трафика на база IP или MAC адрес?", opts:["Филтриране на URL адреси","Филтриране на пакети","Динамична инспекция на пакети (SPI)","Филтриране на приложения"], correct:1 },
+    { q:"Каква е препоръчителната минимална дължина на сигурна парола?", opts:["6 символа","8 символа","12 символа","20 символа"], correct:2 },
+    { q:"Кои от изброените СА симптоми на заразена с малуер система? (изберете всички верни)", opts:["Увеличено използване на процесора","По-бърза работа на компютъра","Изпращане на имейли без знанието на потребителя","Изключване на антивирусния софтуер"], multi:true, correct:[0,2,3] },
+    { q:"Какво е двуфакторно удостоверяване?", opts:["Използване на две различни пароли","Настройка, изискваща втори фактор (SMS код, ПИН, пръстов отпечатък) освен парола","Смяна на паролата на всеки два дни","Влизане от два различни браузъра"], correct:1 },
+    { q:"Коя атака с парола пробва всички възможни комбинации от символи?", opts:["Речник атака","Атака с груба сила (Brute-force)","Man-in-the-Middle","Фишинг"], correct:1 }
+  ]
+},
+{
+  title: "Решаване на технически проблеми",
+  questions: [
+    { q:"Коя комбинация от клавиши отваря Task Manager директно?", opts:["Ctrl+Alt+T","Ctrl+Shift+Esc","Alt+F4","Ctrl+Shift+Del"], correct:1 },
+    { q:"Какво показва разделът „Startup“ в Task Manager?", opts:["Инсталираните програми","Приложенията, стартиращи автоматично при пускане на компютъра","Историята на браузъра","Мрежовите връзки"], correct:1 },
+    { q:"Какво трябва да се направи първо при проблем със звука, преди да се търси хардуерен проблем?", opts:["Да се преинсталира операционната система","Да се провери дали звукът не е намален/изключен и да се проверят аудио устройствата","Да се смени компютърът","Да се изтрие Task Manager"], correct:1 },
+    { q:"Къде в Windows 10 се проверяват проблемни устройства и драйвери?", opts:["Task Manager","Device Manager","Control Panel > Uninstall a program","File Explorer"], correct:1 },
+    { q:"Кое от изброените е пример за хардуерен проблем, а не софтуерен?", opts:["Повреден захранващ блок","Забавена работа на браузъра","Пълен системен диск","Липсваща актуализация"], correct:0 },
+    { q:"Какво прави инструментът Disk Cleanup?", opts:["Инсталира нови драйвери","Освобождава свободно място на системния диск","Настройва защитната стена","Проверява за вируси"], correct:1 }
+  ]
+},
+{
+  title: "Здраве и благосъстояние",
+  questions: [
+    { q:"Кои от изброените СА физически рискове от прекомерна употреба на дигитални устройства? (изберете всички верни)", opts:["Зрителни проблеми","Проблеми със съня","Проблеми със седенето","Кибертормоз"], multi:true, correct:[0,1,2] },
+    { q:"Каква е препоръчителната минимална площ на работно място пред компютър в учебна зала?", opts:["2 м²","5 м²","10 м²","15 м²"], correct:1 },
+    { q:"Какво е оптималното разстояние от очите до екрана?", opts:["20–30 см","50–70 см","100–120 см","над 150 см"], correct:1 },
+    { q:"Каква е препоръчителната температура в компютърен кабинет?", opts:["15–18°C","21–23°C","26–30°C","над 30°C"], correct:1 },
+    { q:"Кой цвят на екрана се посочва като най-уморяващ за очите?", opts:["Зелен","Жълт","Сив","Бял"], correct:2 }
+  ]
+},
+{
+  title: "Авторско право и лицензи",
+  questions: [
+    { q:"Какво означава символът „NC“ в Creative Commons лицензите?", opts:["Признание на автора","Без производни произведения","Некомерсиална употреба","Споделяне на споделеното"], correct:2 },
+    { q:"До кога важи Creative Commons лиценз?", opts:["Безсрочно","До 70 години след смъртта на автора (или от първото публикуване)","10 години","До оттегляне по всяко време — включително за вече разпространени копия"], correct:1 },
+    { q:"Какъв е стандартът за цитиране, актуален в България към 2023 г.?", opts:["APA 7","ISO 690:2021","MLA 9","Chicago Style"], correct:1 },
+    { q:"Какво означава символът „ND“ в Creative Commons?", opts:["Без производни произведения","Некомерсиално","Признание","Споделяне на споделеното"], correct:0 },
+    { q:"За какъв тип произведения НЕ се препоръчва използване на Creative Commons лиценз?", opts:["Текстове","Изображения","Компютърни програми (използва се лиценз за отворен код)","Видео материали"], correct:2 },
+    { q:"Кои от изброените СА елементи (буквени кодове) на Creative Commons лицензите? (изберете всички верни)", opts:["BY (Признание на автора)","NC (Некомерсиална употреба)","ND (Без производни произведения)","GPL"], multi:true, correct:[0,1,2] }
+  ]
+},
+{
+  title: "Създаване на дигитално съдържание",
+  questions: [
+    { q:"Как се наричат документи с постоянна и изменяема част, използвани за създаване на много екземпляри с индивидуална информация?", opts:["Формуляри","Циркулярни документи","Шаблони","Макроси"], correct:1 },
+    { q:"От кой раздел на MS Word се стартира съветникът Step-by-Step Mail Merge Wizard?", opts:["Insert","References","Mailings","Review"], correct:2 },
+    { q:"Кой раздел на лентата в MS Word трябва да се активира, за да се създават формуляри с контроли на съдържанието?", opts:["Design","Developer","Layout","View"], correct:1 },
+    { q:"Кой файлов формат обикновено се създава автоматично при въвеждане на нов списък с данни (Type a new list) в Mail Merge?", opts:[".docx",".mdb (MS Access)",".xlsx",".csv"], correct:1 }
+  ]
+},
+{
+  title: "Търсене на информация",
+  questions: [
+    { q:"Кой специален символ при търсене на файлове замества произволна последователност от символи?", opts:["?","*","#","!"], correct:1 },
+    { q:"Какво представлява „съставна заявка“ при търсене в интернет?", opts:["Заявка само с една ключова дума","Заявка с уточнени параметри – език, домейн, изключване на думи и др.","Заявка без ключови думи","Заявка само за изображения"], correct:1 },
+    { q:"Коя от изброените платформи е специализирана за търсене на работа в България?", opts:["creativecommons.bg","jobs.bg","egov.bg","factcheck.bg"], correct:1 },
+    { q:"Какво замества символът „?“ при търсене с шаблон?", opts:["Произволна последователност от символи","Точно един символ","Произволна цифра","Нищо, символът не се използва"], correct:1 },
+    { q:"Кои от изброените СА препоръчителни съвети при търсене в интернет? (изберете всички верни)", opts:["Използване на по-конкретни ключови думи","Използване на съюзи в заявката","Търсене на изображения с висока резолюция","Подлагане на съмнение на недостоверни източници"], multi:true, correct:[0,2,3] },
+    { q:"От коя година съществува професионалната мрежа LinkedIn?", opts:["1998 г.","2003 г.","2010 г.","2015 г."], correct:1 },
+    { q:"Кой е сайтът на Агенцията по заетостта в България?", opts:["www.az.government.bg","www.jobs.bg","www.parliament.bg","www.zaplata.bg"], correct:0 },
+    { q:"Какво замества символът „[ ]“ (квадратни скоби) при търсене с шаблон от специални символи?", opts:["Произволна последователност от символи","Един от символите, изброени в скобите","Точно един символ","Диапазон от числа"], correct:1 },
+    { q:"Какво замества символът „#“ при търсене с шаблон от специални символи?", opts:["Произволна буква","Произволен числов знак","Точка в името на файла","Празно място"], correct:1 },
+    { q:"Как се подрежда списък с файлове по азбучен ред в изглед Details в Windows Explorer?", opts:["Чрез Task Manager","Чрез щракване върху заглавието на колоната Name","Чрез Device Manager","Не е възможно"], correct:1 }
+  ]
+},
+{
+  title: "Идентифициране на пропуски в компетентността",
+  questions: [
+    { q:"Какво представлява „длъжностната характеристика“?", opts:["Списък с работни заплати","Документ, описващ изискванията и задълженията на работника","Сертификат за завършено обучение","CV на кандидата"], correct:1 },
+    { q:"Кои от изброените СА елементи на понятието „компетентност“? (изберете всички верни)", opts:["Знания","Умения","Нагласи","Заплата"], multi:true, correct:[0,1,2] },
+    { q:"Кой сайт предлага безплатни курсове с възможност за издаване на сертификат срещу заплащане?", opts:["Coursera","YouTube (общо)","Google Диск","Task Manager"], correct:0 }
+  ]
+}
+];
+
+// Flatten with global indices
+let flatQuestions = [];
+sections.forEach((sec, si) => {
+  sec.questions.forEach((q, qi) => {
+    flatQuestions.push({ ...q, sectionIndex: si });
+  });
+});
+
+const totalQuestions = flatQuestions.length;
+const answers = new Array(totalQuestions).fill(null); // number for single, Set for multi
+const checked = new Array(totalQuestions).fill(false);
+const results = new Array(totalQuestions).fill(null); // true/false once checked
+
+const quizEl = document.getElementById('quiz');
+let globalIdx = 0;
+
+function normalizeCorrect(q){
+  return q.multi ? [...q.correct].sort((a,b)=>a-b) : [q.correct];
+}
+
+sections.forEach((sec, si) => {
+  const secTitle = document.createElement('div');
+  secTitle.className = 'section-title';
+  secTitle.textContent = sec.title;
+  quizEl.appendChild(secTitle);
+
+  sec.questions.forEach((q) => {
+    const idx = globalIdx;
+    if(q.multi) answers[idx] = new Set();
+
+    const card = document.createElement('div');
+    card.className = 'question';
+    card.id = 'q' + idx;
+
+    const title = document.createElement('div');
+    title.className = 'q-title';
+    title.innerHTML = '<span class="q-num">' + (idx+1) + '.</span>' + q.q +
+      (q.multi ? '<span class="multi-tag">няколко верни</span>' : '');
+    card.appendChild(title);
+
+    const optsWrap = document.createElement('div');
+    optsWrap.className = 'options';
+
+    q.opts.forEach((optText, oi) => {
+      const label = document.createElement('label');
+      label.className = 'opt';
+      label.id = 'q' + idx + 'o' + oi;
+      const input = document.createElement('input');
+      input.type = q.multi ? 'checkbox' : 'radio';
+      input.name = 'q' + idx;
+      input.value = oi;
+      input.addEventListener('change', () => {
+        if(q.multi){
+          if(input.checked) answers[idx].add(oi);
+          else answers[idx].delete(oi);
+        } else {
+          answers[idx] = oi;
+        }
+        updateCheckBtnState(idx, q);
+      });
+      const span = document.createElement('span');
+      span.textContent = optText;
+      label.appendChild(input);
+      label.appendChild(span);
+      optsWrap.appendChild(label);
+    });
+
+    card.appendChild(optsWrap);
+
+    const checkRow = document.createElement('div');
+    checkRow.className = 'check-row';
+    const checkBtn = document.createElement('button');
+    checkBtn.className = 'check-btn';
+    checkBtn.id = 'check' + idx;
+    checkBtn.textContent = 'Провери';
+    checkBtn.disabled = true;
+    checkBtn.addEventListener('click', () => checkQuestion(idx, q));
+    const feedback = document.createElement('span');
+    feedback.className = 'feedback';
+    feedback.id = 'fb' + idx;
+    checkRow.appendChild(checkBtn);
+    checkRow.appendChild(feedback);
+    card.appendChild(checkRow);
+
+    quizEl.appendChild(card);
+    globalIdx++;
+  });
+});
+
+function updateCheckBtnState(idx, q){
+  const btn = document.getElementById('check' + idx);
+  if(checked[idx]) return; // already checked, button stays disabled/hidden
+  const hasSelection = q.multi ? answers[idx].size > 0 : answers[idx] !== null;
+  btn.disabled = !hasSelection;
+}
+
+function checkQuestion(idx, q){
+  if(checked[idx]) return;
+  const correctSet = new Set(normalizeCorrect(q));
+  const userSet = q.multi ? answers[idx] : new Set([answers[idx]]);
+
+  let isCorrect = correctSet.size === userSet.size &&
+    [...correctSet].every(v => userSet.has(v));
+
+  q.opts.forEach((optText, oi) => {
+    const label = document.getElementById('q' + idx + 'o' + oi);
+    const input = label.querySelector('input');
+    input.disabled = true;
+    label.classList.add('disabled');
+    const isOptCorrect = correctSet.has(oi);
+    const isSelected = userSet.has(oi);
+    if(isOptCorrect && isSelected){
+      label.classList.add('correct');
+    } else if(!isOptCorrect && isSelected){
+      label.classList.add('wrong');
+    } else if(isOptCorrect && !isSelected){
+      label.classList.add('missed');
+    }
+  });
+
+  checked[idx] = true;
+  results[idx] = isCorrect;
+
+  const btn = document.getElementById('check' + idx);
+  btn.style.display = 'none';
+  const fb = document.getElementById('fb' + idx);
+  fb.textContent = isCorrect ? '✓ Правилно!' : '✗ Грешен отговор — верните са отбелязани в зелено';
+  fb.className = 'feedback ' + (isCorrect ? 'ok' : 'bad');
+
+  document.getElementById('q' + idx).classList.add('answered');
+  updateProgress();
+}
+
+function updateProgress(){
+  const answeredCount = checked.filter(c => c).length;
+  const pct = Math.round((answeredCount/totalQuestions)*100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = 'Проверени: ' + answeredCount + ' / ' + totalQuestions;
+  document.getElementById('progressPct').textContent = pct + '%';
+
+  const liveEl = document.getElementById('liveLevel');
+  const correctCount = results.filter(r => r === true).length;
+  if(answeredCount === 0){
+    liveEl.innerHTML = 'Отговорете на въпрос, за да видите нивото си';
+  } else {
+    const scorePct = Math.round((correctCount/answeredCount)*100);
+    const lvl = levelForPct(scorePct);
+    liveEl.innerHTML = '<span class="lv-count">' + correctCount + '/' + answeredCount + '</span> Ниво <span class="lv-tag ' + lvl.tag + '">' + lvl.short + '</span>';
+  }
+}
+
+function levelForPct(pct){
+  if(pct >= 90) return { tag:'highly', short:'Highly Specialised', name:'Експертно (Highly Specialised)' };
+  if(pct >= 65) return { tag:'advanced', short:'Advanced', name:'Напреднало (Advanced)' };
+  if(pct >= 40) return { tag:'intermediate', short:'Intermediate', name:'Средно (Intermediate)' };
+  return { tag:'foundation', short:'Foundation', name:'Начинаещо (Foundation)' };
+}
+
+document.getElementById('submitBtn').addEventListener('click', () => {
+  const checkedCount = checked.filter(c => c).length;
+  const correctCount = results.filter(r => r === true).length;
+  const pct = checkedCount === 0 ? 0 : Math.round((correctCount/checkedCount)*100);
+
+  const resultEl = document.getElementById('result');
+  resultEl.style.display = 'block';
+  document.getElementById('scoreText').textContent = pct + '%';
+
+  let detail = correctCount + ' от ' + checkedCount + ' проверени въпроса са верни';
+  if(checkedCount < totalQuestions){
+    detail += ' (' + (totalQuestions - checkedCount) + ' въпроса все още не са проверени)';
+  }
+  document.getElementById('scoreDetail').textContent = detail;
+
+  const badge = document.getElementById('scoreBadge');
+  if(checkedCount === 0){
+    badge.className = 'badge ok';
+    badge.textContent = 'Все още няма проверени въпроси';
+  } else if(pct >= 85){ badge.className = 'badge great'; badge.textContent = 'Отличен резултат'; }
+  else if(pct >= 60){ badge.textContent = 'Добър резултат'; badge.className = 'badge ok'; }
+  else { badge.textContent = 'Препоръчва се преговор на материала'; badge.className = 'badge low'; }
+
+  // Per-section proficiency level breakdown
+  const sectionLevelsEl = document.getElementById('sectionLevels');
+  sectionLevelsEl.innerHTML = '';
+  let gIdx = 0;
+  sections.forEach((sec) => {
+    let secCorrect = 0, secChecked = 0;
+    const secTotal = sec.questions.length;
+    sec.questions.forEach(() => {
+      if(checked[gIdx]) { secChecked++; if(results[gIdx]) secCorrect++; }
+      gIdx++;
+    });
+    const secPct = secTotal === 0 ? 0 : Math.round((secCorrect/secTotal)*100);
+    const lvl = levelForPct(secPct);
+    const row = document.createElement('div');
+    row.className = 'level-row';
+    row.innerHTML =
+      '<span class="level-name">' + sec.title + '</span>' +
+      '<span class="level-score">' + secCorrect + '/' + secTotal + '</span>' +
+      '<span class="level-tag ' + lvl.tag + '">' + lvl.name + '</span>';
+    sectionLevelsEl.appendChild(row);
+  });
+
+  resultEl.scrollIntoView({ behavior:'smooth', block:'center' });
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  location.reload();
+});
+
+updateProgress();
+</script>
+</body>
+</html>
