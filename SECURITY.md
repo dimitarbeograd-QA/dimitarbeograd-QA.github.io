@@ -4,21 +4,32 @@
 Ако откриеш уязвимост в този сайт, моля не отваряй публичен Issue.
 Свържи се директно: **dimitar_beograd@abv.bg**
 
-## Вече внедрени мерки (виж `<head>` в `index.html`)
-- Content-Security-Policy (ограничава script/style/img източници)
-- X-Content-Type-Options: nosniff
-- X-Frame-Options: DENY (anti-clickjacking)
-- Permissions-Policy (блокира camera/microphone/geolocation/payment/usb)
-- Referrer-Policy: strict-origin-when-cross-origin
-- Honeypot поле в контактната форма (anti-spam)
+## Какво реално защитава сайта
+- Статичен сайт: няма сървърен код и база данни.
+- Content-Security-Policy чрез `<meta>` таг (ограничава script/style/img/connect източниците).
+- Referrer-Policy: strict-origin-when-cross-origin (`<meta>` таг).
+- HTTPS през GitHub Pages.
+- Honeypot поле и проверка по формат и дължина в контактната форма.
+- Без външни скриптове; единственият външен ресурс са шрифтовете от Google Fonts.
 
-## Известни съображения
-- `script-src 'self' 'unsafe-inline'` в CSP позволява inline скриптове — това
-  е по-слабо от nonce/hash-базиран CSP, но е приемливо за статичен сайт без
-  потребителски генерирано съдържание. Ако сайтът започне да рендира
-  потребителски input, преразгледай тази политика.
-- Ако контактната форма праща данни към външен endpoint, увери се, че той е
-  зареден през HTTPS и не изтича лични данни в URL параметри.
+## Известни ограничения
+- GitHub Pages не позволява собствени HTTP headers. `X-Frame-Options`,
+  `Permissions-Policy`, `X-Content-Type-Options` и `Cache-Control` като `<meta>`
+  тагове се игнорират от браузърите, затова са премахнати. Следствие: сайтът може
+  да бъде вграден в `<iframe>` (clickjacking). Рискът е нисък, защото няма вход и
+  чувствителни действия. Истинско решение: Cloudflare пред сайта или хостинг с headers.
+- `script-src 'unsafe-inline'` в CSP позволява inline скриптове — приемливо за
+  статичен сайт без потребителско съдържание. Преразгледай, ако се добави такова.
+- Ограничението на заявките (3 за 10 минути) и таймерът във формата работят само
+  в браузъра — не са защита срещу abuse.
+- Контактната форма: докато `FORM_ENDPOINT` в `index.html` е празен, тя отваря
+  имейл приложението на посетителя (`mailto:`). Ако се добави външна услуга
+  (напр. Formspree), добави нейния адрес към `connect-src` в CSP и използвай HTTPS.
+- Имейл адресът е в чист текст и може да бъде събиран от спам ботове.
+
+## Препоръки към собственика на акаунта
+- Включи 2FA/passkeys за GitHub акаунта.
+- Не комитвай ключове, пароли и токени в repo-то.
 
 ## Обхват
 Този документ покрива само кода в това repo.

@@ -15,14 +15,15 @@ endpoint/service (провери `<script>` логиката за submit handler
 | `.services` | 9 service карти |
 | `.process` | 4-стъпков работен процес |
 | `.tech` | Технологичен стек (pills) |
-| `.security-section` | Изредени security мерки (CSP, HSTS, CSRF и др.) |
+| `.security-section` | Изредени security мерки (CSP, HTTPS, honeypot, статичен сайт) |
 | `.qa-section` | QA услуги на компанията |
 | `.remote-section` | Remote assistance услуги |
 | `.contact` | Контактна форма с валидация + honeypot |
 
-## Security headers (вече конфигурирани в `<head>`)
-CSP, X-Content-Type-Options, X-Frame-Options, Permissions-Policy,
-Referrer-Policy — виж `SECURITY.md` за детайли.
+## Security мерки в `<head>`
+Content-Security-Policy и Referrer-Policy (като `<meta>` тагове). Истински HTTP
+headers (X-Frame-Options, Permissions-Policy и др.) не могат да се задават на
+GitHub Pages — виж `SECURITY.md`.
 
 ## Препоръки за бъдещо развитие
 - Ако формата праща данни към реален backend/email service, документирай
