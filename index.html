@@ -345,6 +345,19 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
 .qa-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.6; font-weight: 300; margin-bottom: 14px; }
 .qa-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .qa-tags span { background: rgba(0,210,180,0.08); border: 1px solid rgba(0,210,180,0.2); border-radius: 100px; padding: 3px 10px; font-size: 0.68rem; font-weight: 600; color: rgba(0,210,180,0.9); letter-spacing: 0.03em; }
+.qa-dl { display: inline-block; margin-top: 4px; padding: 9px 18px; border-radius: 100px; background: rgba(0,210,180,0.15); border: 1px solid rgba(0,210,180,0.45); color: rgba(0,210,180,1); font-size: 0.8rem; font-weight: 700; text-decoration: none; transition: background .2s; }
+.qa-dl:hover { background: rgba(0,210,180,0.28); }
+.qa-form { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.qa-form input[type=email] { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; color: inherit; font: inherit; font-size: 0.82rem; }
+.qa-form input[type=email]:focus { outline: none; border-color: rgba(0,210,180,0.6); }
+.qa-consent { font-size: 0.7rem; color: var(--muted); line-height: 1.45; display: flex; gap: 8px; align-items: flex-start; }
+.qa-consent input { margin-top: 2px; }
+.qa-consent a { color: rgba(0,210,180,0.9); }
+.qa-form button.qa-dl { cursor: pointer; font-family: inherit; }
+.qa-msg { display: none; font-size: 0.78rem; line-height: 1.5; }
+.qa-msg.ok { display: block; color: rgba(0,210,180,1); }
+.qa-msg.err { display: block; color: #ff8a8a; }
+.qa-msg a { color: rgba(0,210,180,1); font-weight: 700; }
 .qa-stats { display: flex; gap: 0; margin-top: 40px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
 .qa-stat { flex: 1; padding: 24px; text-align: center; border-right: 1px solid var(--border); }
 .qa-stat:last-child { border-right: none; }
@@ -824,6 +837,24 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
         </div>
       </div>
 
+
+      <div class="qa-card reveal">
+        <div class="qa-card-top">
+          <span class="qa-icon">🎁</span>
+          <h4>Безплатен QA пакет</h4>
+        </div>
+        <p>Шаблони на български: тест план, бъг репорт, тест случаи (Excel), чеклисти за уеб, мобилно и API, и QA речник. Свободен за сваляне и ползване.</p>
+        <div class="qa-tags">
+          <span>Test Plan</span><span>Bug Report</span><span>Checklists</span>
+        </div>
+        <form id="qaForm" class="qa-form" novalidate autocomplete="off">
+          <input type="email" id="qa_email" placeholder="Твоят имейл" maxlength="120" aria-label="Имейл за QA пакета" required>
+          <label class="qa-consent"><input type="checkbox" id="qa_consent"> Съгласен съм да получа пакета и новини от DimitTech на този имейл. <a href="privacy.html">Поверителност</a></label>
+          <button type="submit" class="qa-dl">Получи пакета →</button>
+          <div class="qa-msg" id="qaMsg" role="status"></div>
+        </form>
+      </div>
+
     </div>
 
   </div>
@@ -1082,6 +1113,25 @@ form.addEventListener('submit', function(e) {
   }
 });
 
+
+/* QA пакет: имейл преди сваляне */
+(function(){
+  const f=document.getElementById('qaForm'); if(!f) return;
+  const em=document.getElementById('qa_email'), cb=document.getElementById('qa_consent'), m=document.getElementById('qaMsg');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    const v=em.value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){ m.className='qa-msg err'; m.textContent='Въведи валиден имейл адрес.'; return; }
+    if(!cb.checked){ m.className='qa-msg err'; m.textContent='Отбележи съгласието, за да продължиш.'; return; }
+    if (typeof FORM_ENDPOINT !== 'undefined' && FORM_ENDPOINT) {
+      fetch(FORM_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({name:'QA пакет',email:v,service:'QA пакет',message:'Заявка за безплатния QA пакет и новини от DimitTech.'})}).catch(function(){});
+    } else {
+      window.open('mailto:dimitar_beograd@abv.bg?subject='+encodeURIComponent('QA пакет')+'&body='+encodeURIComponent('Здравей, искам да получавам новини от DimitTech.\nИмейл: '+v),'_self');
+    }
+    m.className='qa-msg ok';
+    m.innerHTML='Благодаря! <a href="downloads/QA-Pack-BG.zip" download>Свали QA-Pack-BG.zip ↓</a>';
+  });
+})();
 /* Console warning */
 try {
   console.log('\u26A0 СТОП! Тази функция е за разработчици. Ако някой те е насочил тук — това е измама!');
