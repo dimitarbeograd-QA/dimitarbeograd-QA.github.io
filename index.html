@@ -163,18 +163,6 @@ nav {
 }
 .nav-mobile-divider { width: 40px; height: 1px; background: var(--border); margin: 8px 0; }
 
-/* SECURITY BADGE */
-.security-badge {
-  position: fixed; bottom: 16px; right: 16px; z-index: 200;
-  background: rgba(0,255,136,0.08); border: 1px solid rgba(0,255,136,0.25);
-  border-radius: 100px; padding: 6px 12px 6px 9px;
-  display: flex; align-items: center; gap: 6px;
-  font-size: 0.62rem; font-weight: 600; color: var(--success);
-  letter-spacing: 0.05em; backdrop-filter: blur(10px);
-  pointer-events: none;
-  max-width: 140px;
-}
-.sec-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); animation: blink 2s infinite; }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
 /* HERO */
@@ -437,7 +425,6 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
 </head>
 <body>
 
-<div class="security-badge" title="Защитен сайт"><span class="sec-dot"></span>ЗАЩИТЕН САЙТ</div>
 
 <!-- TOP CONTACT BAR -->
 <div class="topbar">
@@ -1032,12 +1019,13 @@ function sanitize(s) { return s.replace(/</g,'&lt;').replace(/>/g,'&gt;').replac
 function validEmail(e) { return /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(e); }
 
 /* Validate */
-function check(input, errId, fn) {
+function check(input, errId, fn, force) {
   const err = document.getElementById(errId);
   const ok = fn(input.value);
-  input.classList.toggle('invalid', !ok && input.value.length > 0);
+  const showErr = !ok && (force || input.value.length > 0);
+  input.classList.toggle('invalid', showErr);
   input.classList.toggle('valid', ok);
-  if (err) err.style.display = (!ok && input.value.length > 0) ? 'block' : 'none';
+  if (err) err.style.display = showErr ? 'block' : 'none';
   return ok;
 }
 document.getElementById('f_name').addEventListener('input', function(){ check(this,'err_name', v=>v.trim().length>=2); });
@@ -1063,10 +1051,10 @@ form.addEventListener('submit', function(e) {
   if (document.getElementById('hp_website').value || document.getElementById('hp_email').value) { showMsg('success','Заявката е изпратена!'); return; }
   if (Date.now() - parseInt(document.getElementById('form_timestamp').value) < 1500) { showMsg('error','Моля изчакай малко.'); return; }
   if (limited()) { showMsg('error','Достигнат лимит. Опитай след 10 минути.'); return; }
-  const ok1 = check(document.getElementById('f_name'),'err_name',v=>v.trim().length>=2);
-  const ok2 = check(document.getElementById('f_email'),'err_email',validEmail);
-  const ok3 = check(document.getElementById('f_msg'),'err_msg',v=>v.trim().length>=10);
-  if (!ok1||!ok2||!ok3) { showMsg('error','Моля коригирай маркираните полета.'); return; }
+  const ok1 = check(document.getElementById('f_name'),'err_name',v=>v.trim().length>=2,true);
+  const ok2 = check(document.getElementById('f_email'),'err_email',validEmail,true);
+  const ok3 = check(document.getElementById('f_msg'),'err_msg',v=>v.trim().length>=10,true);
+  if (!ok1||!ok2||!ok3) { showMsg('error','Моля, попълнете всички задължителни полета коректно.'); return; }
   subs.push(Date.now());
   const payload = {
     name: document.getElementById('f_name').value.trim(),
