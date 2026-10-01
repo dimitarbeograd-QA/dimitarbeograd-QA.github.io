@@ -9,8 +9,9 @@
 - Content-Security-Policy чрез `<meta>` таг (ограничава script/style/img/connect източниците).
 - Referrer-Policy: strict-origin-when-cross-origin (`<meta>` таг).
 - HTTPS през GitHub Pages.
+- Страницата с теста и privacy.html имат собствена Content-Security-Policy (без външни източници).
 - Honeypot поле и проверка по формат и дължина в контактната форма.
-- Без външни скриптове; единственият външен ресурс са шрифтовете от Google Fonts.
+- Без външни скриптове; шрифтовете (Syne, DM Sans — SIL OFL) се хостват локално в `fonts/`, без връзка към Google.
 
 ## Известни ограничения
 - GitHub Pages не позволява собствени HTTP headers. `X-Frame-Options`,

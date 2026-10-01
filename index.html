@@ -7,8 +7,11 @@
 <meta name="description" content="DimitTech — персонализирани IT решения, уеб разработка, cloud, AI и киберсигурност. Гр. Лом, България.">
 <meta name="robots" content="index, follow">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
+<style>
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:300 500;font-display:swap;src:url(fonts/dm-sans-latin.woff2) format('woff2');}
+@font-face{font-family:'Syne';font-style:normal;font-weight:700 800;font-display:swap;src:url(fonts/syne-latin.woff2) format('woff2');}
+</style>
 <style>
 :root {
   --bg: #050A14;
@@ -742,7 +745,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
       <div class="sec-card reveal"><div class="sec-card-icon">🍯</div><h4>Honeypot Anti-Spam</h4><p>Невидими полета хващат ботове автоматично без да засягат реалните потребители.</p><div class="sec-status"><span class="sec-status-dot"></span>АКТИВНО</div></div>
       <div class="sec-card reveal"><div class="sec-card-icon">🧹</div><h4>Валидация на входа</h4><p>Полетата на формата се проверяват по формат и дължина преди изпращане.</p><div class="sec-status"><span class="sec-status-dot"></span>АКТИВНО</div></div>
       <div class="sec-card reveal"><div class="sec-card-icon">&#128230;</div><h4>Статичен сайт</h4><p>Няма сървърен код и база данни — няма SQL injection и няма сървър за превземане.</p><div class="sec-status"><span class="sec-status-dot"></span>АКТИВНО</div></div>
-      <div class="sec-card reveal"><div class="sec-card-icon">&#128279;</div><h4>Минимални зависимости</h4><p>Единственият външен ресурс са шрифтовете от Google Fonts — без външни скриптове.</p><div class="sec-status"><span class="sec-status-dot"></span>АКТИВНО</div></div>
+      <div class="sec-card reveal"><div class="sec-card-icon">&#128279;</div><h4>Минимални зависимости</h4><p>Шрифтовете се хостват локално — без външни скриптове и без връзка към Google.</p><div class="sec-status"><span class="sec-status-dot"></span>АКТИВНО</div></div>
     </div>
   </div>
 </section>
@@ -953,6 +956,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
     <li><a href="#remote">Remote</a></li>
     <li><a href="#security">Сигурност</a></li>
     <li><a href="#contact">Контакти</a></li>
+    <li><a href="privacy.html">Поверителност</a></li>
   </ul>
   <p class="footer-copy">© 2026 DimitTech · Гр. Лом</p>
 </footer>
@@ -1030,7 +1034,7 @@ const btn  = document.getElementById('submitBtn');
 const msg  = document.getElementById('formMsg');
 function showMsg(type, text) { msg.className='form-msg '+type; msg.textContent=text; msg.style.display='block'; }
 
-/* Задай адреса на услугата за формуляри (напр. https://formspree.io/f/XXXXXXXX), за да се изпраща без имейл клиент.
+/* Адрес на услуга за формуляри — ако се зададе, формата се изпраща без имейл клиент.
    Докато е празен, формата отваря имейл приложението на посетителя (mailto). */
 const FORM_ENDPOINT = '';
 

@@ -8,6 +8,7 @@
 - Контактната форма вече не показва фалшиво „изпратено". Без `FORM_ENDPOINT` отваря имейл клиента (`mailto:`); с него праща реално през `fetch` и показва грешка при неуспех.
 
 ### Changed
+- Шрифтовете (Syne, DM Sans — SIL OFL) се хостват локално в `fonts/`; външната връзка към Google Fonts е премахната, а CSP е затегната (`style-src`/`font-src` само `self`).
 - Секция „Сигурност" е пренаписана с реалните мерки; документацията е синхронизирана.
 
 ### Removed
@@ -15,6 +16,8 @@
 - Плаващият бадж ЗАЩИТЕН САЙТ — безпредметно твърдение за сигурност.
 - Фалшивият CSRF токен и `<meta>` таговете без ефект (`X-Frame-Options`, `Permissions-Policy`, `X-Content-Type-Options`, `Cache-Control`).
 ### Added
+- Страница privacy.html (бележка за поверителност) и линк към нея във footer-а.
+- Content-Security-Policy на страницата с теста (test-digitalni-kompetentnosti.html).
 - Пълна QA документация (`qa-docs/TEST_PLAN.md`, `TEST_CASES.md`) и bug report темплейт.
 - Технически документи: `README.md`, `ARCHITECTURE.md`, `SECURITY.md`, `CONTRIBUTING.md`, `CHANGELOG.md`.
 
