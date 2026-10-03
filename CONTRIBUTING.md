@@ -10,3 +10,6 @@
 - [`README.md`](README.md)
 - [`qa-docs/TEST_CASES.md`](qa-docs/TEST_CASES.md)
 - [`CHANGELOG.md`](CHANGELOG.md)
+
+## Работа с AI агенти
+Правилата за предаване на работа между агенти (клонове, малки commit-и, бележка за предаване) са в [docs/agent-handoff.md](docs/agent-handoff.md).
