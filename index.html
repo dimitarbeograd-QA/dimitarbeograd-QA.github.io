@@ -1067,6 +1067,9 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
 <script>
 'use strict';
 
+/* Превод на низове (i18n.js се зарежда след това; до тогава връща оригинала) */
+const t = s => (window.DT_I18N ? window.DT_I18N.t(s) : s);
+
 /* Hamburger menu */
 const burger = document.getElementById('navBurger');
 const mobileNav = document.getElementById('navMobile');
@@ -1143,13 +1146,13 @@ const FORM_ENDPOINT = '';
 
 form.addEventListener('submit', function(e) {
   e.preventDefault();
-  if (document.getElementById('hp_website').value || document.getElementById('hp_email').value) { showMsg('success','Заявката е изпратена!'); return; }
-  if (Date.now() - parseInt(document.getElementById('form_timestamp').value) < 1500) { showMsg('error','Моля изчакай малко.'); return; }
-  if (limited()) { showMsg('error','Достигнат лимит. Опитай след 10 минути.'); return; }
+  if (document.getElementById('hp_website').value || document.getElementById('hp_email').value) { showMsg('success',t('Заявката е изпратена!')); return; }
+  if (Date.now() - parseInt(document.getElementById('form_timestamp').value) < 1500) { showMsg('error',t('Моля изчакай малко.')); return; }
+  if (limited()) { showMsg('error',t('Достигнат лимит. Опитай след 10 минути.')); return; }
   const ok1 = check(document.getElementById('f_name'),'err_name',v=>v.trim().length>=2,true);
   const ok2 = check(document.getElementById('f_email'),'err_email',validEmail,true);
   const ok3 = check(document.getElementById('f_msg'),'err_msg',v=>v.trim().length>=10,true);
-  if (!ok1||!ok2||!ok3) { showMsg('error','Моля, попълнете всички задължителни полета коректно.'); return; }
+  if (!ok1||!ok2||!ok3) { showMsg('error',t('Моля, попълнете всички задължителни полета коректно.')); return; }
   subs.push(Date.now());
   const payload = {
     name: document.getElementById('f_name').value.trim(),
@@ -1163,25 +1166,25 @@ form.addEventListener('submit', function(e) {
     document.querySelectorAll('.form-group input,.form-group textarea').forEach(el=>el.classList.remove('valid','invalid'));
   }
   if (FORM_ENDPOINT) {
-    btn.disabled = true; btn.textContent = 'Изпращане…';
+    btn.disabled = true; btn.textContent = t('Изпращане…');
     fetch(FORM_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(payload)
     }).then(function(r) {
       if (!r.ok) throw new Error('HTTP ' + r.status);
-      showMsg('success','✅ Заявката е изпратена! Ще се свържем до 24 часа.');
+      showMsg('success',t('✅ Заявката е изпратена! Ще се свържем до 24 часа.'));
       resetForm();
     }).catch(function() {
-      showMsg('error','Грешка при изпращането. Моля пиши ни директно на dimitar_beograd@abv.bg.');
+      showMsg('error',t('Грешка при изпращането. Моля пиши ни директно на dimitar_beograd@abv.bg.'));
     }).finally(function() {
-      btn.disabled = false; btn.textContent = 'Изпрати заявка →';
+      btn.disabled = false; btn.textContent = t('Изпрати заявка →');
     });
   } else {
-    const subject = 'Запитване от сайта' + (payload.service ? ': ' + payload.service : '');
-    const body = 'Име: ' + payload.name + '\nИмейл: ' + payload.email + '\n\n' + payload.message;
+    const subject = t('Запитване от сайта') + (payload.service ? ': ' + payload.service : '');
+    const body = t('Име:') + ' ' + payload.name + '\n' + t('Имейл:') + ' ' + payload.email + '\n\n' + payload.message;
     window.location.href = 'mailto:dimitar_beograd@abv.bg?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-    showMsg('success','Отваряме имейл приложението ти. Натисни „Изпрати" там, за да завършим заявката.');
+    showMsg('success',t('Отваряме имейл приложението ти. Натисни „Изпрати" там, за да завършим заявката.'));
   }
 });
 
@@ -1191,6 +1194,7 @@ try {
   console.log('\u26A0 СТОП! Тази функция е за разработчици. Ако някой те е насочил тук — това е измама!');
 } catch(e) {}
 </script>
+<script src="i18n.js" defer></script>
 <script src="chat-widget.js" data-worker="https://dimittech-offers.dimitar-beograd.workers.dev" defer></script>
 </body>
 </html>

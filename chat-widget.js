@@ -40,40 +40,91 @@
     return e;
   }
 
-  var btn = el('button', { id: 'dt-btn', type: 'button', 'aria-label': 'Отвори чата за оферти' }, '\u{1F4AC}');
-  var panel = el('div', { id: 'dt-panel', role: 'dialog', 'aria-label': 'Чат за оферти' });
+  var TX = {
+    bg: {
+      open: 'Отвори чата за оферти', panel: 'Чат за оферти', title: 'DimitTech - запитване за оферта', close: 'Затвори чата',
+      note: 'Разговаряте с AI асистент. Не споделяйте пароли или лични документи. Офертата се одобрява от човек преди изпращане. Данните ви се ползват само за изготвяне на офертата. ',
+      privacy: 'Поверителност', intro: 'Първо оставете данни за обратна връзка (ще ги ползваме само за офертата):',
+      lName: 'Име', lMail: 'Имейл', lPhone: 'Телефон', phName: 'Вашето име', go: 'Започни чата',
+      ph: 'Напишете съобщение (до 100 думи)...', aria: 'Вашето съобщение', send: 'Изпрати', done: 'Запитването е изпратено.',
+      err: 'Възникна грешка. Опитайте отново след малко или пишете на dimitar_beograd@abv.bg.',
+      eName: 'Моля, въведете име.', eMail: 'Моля, въведете валиден имейл.', ePhone: 'Моля, въведете валиден телефон.',
+      hi: function (n) { return 'Благодаря, ' + n + '! Какъв проект ви трябва? Опишете накратко.'; }
+    },
+    en: {
+      open: 'Open the quote chat', panel: 'Quote chat', title: 'DimitTech - quote request', close: 'Close chat',
+      note: 'You are talking to an AI assistant. Do not share passwords or personal documents. A person approves the quote before it is sent. Your data is used only to prepare the quote. ',
+      privacy: 'Privacy', intro: 'First leave your contact details (we will use them only for the quote):',
+      lName: 'Name', lMail: 'Email', lPhone: 'Phone', phName: 'Your name', go: 'Start chat',
+      ph: 'Type a message (up to 100 words)...', aria: 'Your message', send: 'Send', done: 'Your request has been sent.',
+      err: 'Something went wrong. Please try again shortly or write to dimitar_beograd@abv.bg.',
+      eName: 'Please enter your name.', eMail: 'Please enter a valid email.', ePhone: 'Please enter a valid phone number.',
+      hi: function (n) { return 'Thank you, ' + n + '! What project do you need? Please describe it briefly.'; }
+    }
+  };
+  function curLang() {
+    var l = window.DT_I18N && window.DT_I18N.lang();
+    if (l === 'bg' || l === 'en') return l;
+    var nl = ((navigator.languages && navigator.languages[0]) || navigator.language || 'en').toLowerCase();
+    return nl.indexOf('bg') === 0 ? 'bg' : 'en';
+  }
+  function T() { return TX[curLang()]; }
+
+  var btn = el('button', { id: 'dt-btn', type: 'button' }, '\u{1F4AC}');
+  var panel = el('div', { id: 'dt-panel', role: 'dialog' });
   var head = el('div', { id: 'dt-head' });
-  head.appendChild(el('span', null, 'DimitTech - запитване за оферта'));
-  var closeBtn = el('button', { id: 'dt-close', type: 'button', 'aria-label': 'Затвори чата' }, '×');
+  var headTitle = el('span');
+  head.appendChild(headTitle);
+  var closeBtn = el('button', { id: 'dt-close', type: 'button' }, '×');
   head.appendChild(closeBtn);
 
   var note = el('div', { id: 'dt-note' });
-  note.appendChild(document.createTextNode('Разговаряте с AI асистент. Не споделяйте пароли или лични документи. Офертата се одобрява от човек преди изпращане. Данните ви се ползват само за изготвяне на офертата. '));
-  note.appendChild(el('a', { href: 'privacy.html' }, 'Поверителност'));
+  var noteText = document.createTextNode('');
+  var noteLink = el('a', { href: 'privacy.html' });
+  note.appendChild(noteText);
+  note.appendChild(noteLink);
 
   var contactBox = el('form', { id: 'dt-contact', novalidate: 'novalidate' });
-  function field(id, label, type, ph, max) { var w = el('div'); w.appendChild(el('label', { for: id }, label)); w.appendChild(el('input', { id: id, type: type, placeholder: ph, maxlength: max, autocomplete: type === 'email' ? 'email' : (type === 'tel' ? 'tel' : 'name') })); contactBox.appendChild(w); return w.lastChild; }
-  contactBox.appendChild(el('div', null, 'Първо оставете данни за обратна връзка (ще ги ползваме само за офертата):'));
-  var fName = field('dt-name', 'Име', 'text', 'Вашето име', '100');
-  var fMail = field('dt-mail', 'Имейл', 'email', 'name@example.com', '200');
-  var fPhone = field('dt-phone', 'Телефон', 'tel', '+359 ...', '20');
+  var labels = {};
+  function field(id, key, type, max) { var w = el('div'); labels[key] = el('label', { for: id }); w.appendChild(labels[key]); w.appendChild(el('input', { id: id, type: type, maxlength: max, autocomplete: type === 'email' ? 'email' : (type === 'tel' ? 'tel' : 'name') })); contactBox.appendChild(w); return w.lastChild; }
+  var intro = el('div');
+  contactBox.appendChild(intro);
+  var fName = field('dt-name', 'lName', 'text', '100');
+  var fMail = field('dt-mail', 'lMail', 'email', '200'); fMail.setAttribute('placeholder', 'name@example.com');
+  var fPhone = field('dt-phone', 'lPhone', 'tel', '20'); fPhone.setAttribute('placeholder', '+359 ...');
   var errBox = el('div', { id: 'dt-err', role: 'alert' });
   contactBox.appendChild(errBox);
-  contactBox.appendChild(el('button', { id: 'dt-go', type: 'submit' }, 'Започни чата'));
+  var goBtn = el('button', { id: 'dt-go', type: 'submit' });
+  contactBox.appendChild(goBtn);
 
   var log = el('div', { id: 'dt-log', 'aria-live': 'polite' });
   var form = el('form', { id: 'dt-form' });
-  var input = el('input', { id: 'dt-in', type: 'text', maxlength: '700', placeholder: 'Напишете съобщение (до 100 думи)...', autocomplete: 'off', 'aria-label': 'Вашето съобщение' });
-  var send = el('button', { id: 'dt-send', type: 'submit' }, 'Изпрати');
+  var input = el('input', { id: 'dt-in', type: 'text', maxlength: '700', autocomplete: 'off' });
+  var send = el('button', { id: 'dt-send', type: 'submit' });
   form.appendChild(input); form.appendChild(send);
   [head, note, contactBox, log, form].forEach(function (n) { panel.appendChild(n); });
   document.body.appendChild(panel);
   document.body.appendChild(btn);
 
+  function applyLang() {
+    var x = T();
+    btn.setAttribute('aria-label', x.open); panel.setAttribute('aria-label', x.panel);
+    headTitle.textContent = x.title; closeBtn.setAttribute('aria-label', x.close);
+    noteText.nodeValue = x.note; noteLink.textContent = x.privacy;
+    intro.textContent = x.intro;
+    labels.lName.textContent = x.lName; labels.lMail.textContent = x.lMail; labels.lPhone.textContent = x.lPhone;
+    fName.setAttribute('placeholder', x.phName); goBtn.textContent = x.go;
+    input.setAttribute('placeholder', finished ? x.done : x.ph); input.setAttribute('aria-label', x.aria);
+    send.textContent = x.send;
+    errBox.textContent = '';
+  }
+  document.documentElement.lang && document.addEventListener('dt-lang', applyLang);
+
   var contact = null;
   var messages = [];
   var finished = false;
   var started = false;
+  applyLang();
 
   function add(role, text) {
     var m = el('div', { class: 'dt-m ' + (role === 'user' ? 'dt-u' : 'dt-a') }, text);
@@ -89,7 +140,7 @@
       var r = await fetch(WORKER.replace(/\/$/, '') + '/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: messages, contact: contact })
+        body: JSON.stringify({ messages: messages, contact: contact, lang: curLang() })
       });
       var data = await r.json();
       if (!r.ok) { var er = new Error('http'); er.userMsg = data && data.error; throw er; }
@@ -97,11 +148,11 @@
       add('assistant', data.reply);
       if (data.done) {
         finished = true;
-        input.placeholder = 'Запитването е изпратено.';
+        input.placeholder = T().done;
       }
     } catch (e) {
       messages.pop();
-      add('assistant', (e && e.userMsg) || 'Възникна грешка. Опитайте отново след малко или пишете на dimitar_beograd@abv.bg.');
+      add('assistant', (e && e.userMsg) || T().err);
     }
     setBusy(false);
     if (!finished) input.focus();
@@ -128,13 +179,13 @@
   contactBox.addEventListener('submit', function (ev) {
     ev.preventDefault();
     var n = fName.value.trim(), m = fMail.value.trim(), ph = fPhone.value.trim();
-    if (n.length < 2) { errBox.textContent = 'Моля, въведете име.'; fName.focus(); return; }
-    if (!/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(m)) { errBox.textContent = 'Моля, въведете валиден имейл.'; fMail.focus(); return; }
-    if (!/^\+?[\d\s\-()]{6,20}$/.test(ph)) { errBox.textContent = 'Моля, въведете валиден телефон.'; fPhone.focus(); return; }
+    if (n.length < 2) { errBox.textContent = T().eName; fName.focus(); return; }
+    if (!/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(m)) { errBox.textContent = T().eMail; fMail.focus(); return; }
+    if (!/^\+?[\d\s\-()]{6,20}$/.test(ph)) { errBox.textContent = T().ePhone; fPhone.focus(); return; }
     errBox.textContent = '';
     contact = { name: n, email: m, phone: ph };
     contactBox.classList.remove('show'); log.style.display = ''; form.style.display = '';
-    add('assistant', 'Благодаря, ' + n + '! Какъв проект ви трябва? Опишете накратко.');
+    add('assistant', T().hi(n));
     input.focus();
   });
 
