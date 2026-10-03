@@ -267,6 +267,21 @@ section { position: relative; z-index: 1; }
 .process-step h4 { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; margin-bottom: 7px; }
 .process-step p { font-size: 0.78rem; color: var(--muted); font-weight: 300; line-height: 1.55; }
 
+/* FAQ */
+.faq { padding: 60px 0; scroll-margin-top: 100px; }
+.faq-grid { display: flex; flex-direction: column; gap: 14px; margin-top: 36px; }
+.faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: border-color 0.2s; }
+.faq-item[open] { border-color: rgba(0,212,255,0.3); }
+.faq-summary { list-style: none; padding: 18px 24px; font-family: 'Syne', sans-serif; font-weight: 600; font-size: 0.95rem; color: var(--text); cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; user-select: none; transition: color 0.2s; }
+.faq-summary::-webkit-details-marker, .faq-summary::marker { display: none; }
+.faq-summary:hover { color: var(--accent); }
+.faq-summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 8px; }
+.faq-icon { width: 18px; height: 18px; flex-shrink: 0; color: var(--accent); transition: transform 0.3s ease; }
+.faq-item[open] .faq-icon { transform: rotate(180deg); }
+.faq-content { padding: 0 24px 20px 24px; font-size: 0.85rem; color: var(--muted); line-height: 1.6; border-top: 1px solid rgba(0,212,255,0.06); margin-top: 4px; padding-top: 14px; }
+.faq-content a { color: var(--accent); text-decoration: none; }
+.faq-content a:hover { text-decoration: underline; }
+
 /* TECH */
 .tech { padding: 60px 0; }
 .tech-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
@@ -495,6 +510,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
   <ul class="nav-links">
     <li><a href="#services">Услуги</a></li>
     <li><a href="#process">Процес</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="#tech">Технологии</a></li>
     <li><a href="#security">Сигурност</a></li>
     <li><a href="#qa">QA</a></li>
@@ -513,6 +529,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
 <div class="nav-mobile" id="navMobile" role="dialog" aria-label="Навигация">
   <a href="#services" class="nav-mobile-link">Услуги</a>
   <a href="#process" class="nav-mobile-link">Процес</a>
+  <a href="#faq" class="nav-mobile-link">FAQ</a>
   <a href="#tech" class="nav-mobile-link">Технологии</a>
   <a href="#security" class="nav-mobile-link">Сигурност</a>
   <a href="#qa" class="nav-mobile-link">QA</a>
@@ -706,6 +723,75 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
       <div class="process-step reveal"><div class="step-num">02</div><h4>Стратегия</h4><p>Изграждаме персонализиран план с ясни KPI и срокове.</p></div>
       <div class="process-step reveal"><div class="step-num">03</div><h4>Разработка</h4><p>Изпълняваме с agile методология и прозрачна комуникация.</p></div>
       <div class="process-step reveal"><div class="step-num">04</div><h4>Поддръжка</h4><p>Дългосрочно партньорство и непрекъснато усъвършенстване.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <span class="section-label reveal">Въпроси</span>
+    <h2 class="section-title reveal">Често задавани въпроси</h2>
+    <div class="faq-grid reveal">
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span>Какви услуги предлагате?</span>
+          <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="faq-content">
+          Предлагаме персонализирани IT решения, включително изработка на уебсайтове и уеб приложения, мобилни приложения (iOS и Android), cloud решения, AI автоматизации, киберсигурност, IT консултации, QA тестване и отдалечена поддръжка (Remote Assistance).
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span>Колко струва сайт и как се определя цената?</span>
+          <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="faq-content">
+          Цената винаги е ориентировъчна и зависи от специфичните изисквания, необходимите функционалности и обхвата на Вашия проект. Финалните параметри и оферта се уточняват по имейл или телефон след проведен разговор.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span>Колко време отнема изработката?</span>
+          <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="faq-content">
+          Времето за изработка зависи от сложнoстта и обхвата на проекта. Точните срокове се определят и уточняват предварително в индивидуалната оферта.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span>Как работи чатът за оферти?</span>
+          <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="faq-content">
+          Нашият AI асистент събира първоначална информация за Вашия проект и нужди. Всяка изготвена оферта се преглежда задължително от човек преди изпращане. Моля, не споделяйте пароли или лични документи в чата.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span>Какво включва поддръжката?</span>
+          <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="faq-content">
+          Поддръжката може да включва мониторинг на работоспособността, обновяване на сигурността, отстраняване на технически проблеми, регулярно архивиране и отдалечена поддръжка според договорения план.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span>Как да се свържа с вас?</span>
+          <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </summary>
+        <div class="faq-content">
+          Можете да се свържете с нас на имейл <a href="mailto:dimitar_beograd@abv.bg">dimitar_beograd@abv.bg</a> или по телефон на <a href="tel:+359876667577">+359 87 666 7577</a>, както и чрез формата за контакт или чат асистента на сайта.
+        </div>
+      </details>
     </div>
   </div>
 </section>
