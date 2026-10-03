@@ -47,7 +47,7 @@
 
   var log = el('div', { id: 'dt-log', 'aria-live': 'polite' });
   var form = el('form', { id: 'dt-form' });
-  var input = el('input', { id: 'dt-in', type: 'text', maxlength: '2000', placeholder: 'Напишете съобщение...', autocomplete: 'off', 'aria-label': 'Вашето съобщение' });
+  var input = el('input', { id: 'dt-in', type: 'text', maxlength: '700', placeholder: 'Напишете съобщение (до 100 думи)...', autocomplete: 'off', 'aria-label': 'Вашето съобщение' });
   var send = el('button', { id: 'dt-send', type: 'submit' }, 'Изпрати');
   form.appendChild(input); form.appendChild(send);
   [head, note, log, form].forEach(function (n) { panel.appendChild(n); });
@@ -75,7 +75,7 @@
         body: JSON.stringify({ messages: messages })
       });
       var data = await r.json();
-      if (!r.ok) throw new Error(data.error || 'Грешка');
+      if (!r.ok) { var er = new Error('http'); er.userMsg = data && data.error; throw er; }
       messages.push({ role: 'assistant', content: data.reply });
       add('assistant', data.reply);
       if (data.done) {
@@ -84,7 +84,7 @@
       }
     } catch (e) {
       messages.pop();
-      add('assistant', 'Възникна грешка. Опитайте отново след малко или пишете на dimitar_beograd@abv.bg.');
+      add('assistant', (e && e.userMsg) || 'Възникна грешка. Опитайте отново след малко или пишете на dimitar_beograd@abv.bg.');
     }
     setBusy(false);
     if (!finished) input.focus();
