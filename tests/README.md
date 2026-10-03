@@ -9,13 +9,15 @@
 За стартиране на тестовете изпълнете следната команда от корена на хранилището:
 
 ```bash
-node --test tests/
+node --test tests/smoke.test.mjs
 ```
 
-Алтернативно, за стартиране на конкретен тестов файл:
+> Бележка: `node --test tests/` (само папка) не работи в Node 22 — дава `MODULE_NOT_FOUND`. Ползвайте пътя до файла или шаблон: `node --test "tests/*.test.mjs"`.
+
+Алтернативно, за всички тестови файлове в папката:
 
 ```bash
-node --test tests/smoke.test.mjs
+node --test "tests/*.test.mjs"
 ```
 
 ## Какво се покрива от тестовете
