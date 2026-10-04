@@ -165,6 +165,7 @@
     "Тестване на реални устройства и BrowserStack. iOS, Android, Chrome, Firefox, Safari, Edge — гарантираме еднакво изживяване навсякъде.": "Testing on real devices and BrowserStack. iOS, Android, Chrome, Firefox, Safari, Edge — we guarantee a consistent experience everywhere.",
     "QA Документация": "QA documentation",
     "Детайлни test plan-ове, bug репорти с репродукционни стъпки, screenshots и видеа. Интеграция с Jira, Linear или GitHub Issues.": "Detailed test plans, bug reports with reproduction steps, screenshots and videos. Integration with Jira, Linear or GitHub Issues.",
+    "🎁 Безплатни QA шаблони": "🎁 Free QA templates",
     "Безплатен QA пакет": "Free QA pack",
     "Шаблони на български: тест план, бъг репорт, тест случаи (Excel), чеклисти за уеб, мобилно и API, и QA речник. Свободен за сваляне и ползване.": "Templates in Bulgarian: test plan, bug report, test cases (Excel), checklists for web, mobile and API, and a QA glossary. Free to download and use.",
     "Свали безплатно (ZIP) ↓": "Download for free (ZIP) ↓",
