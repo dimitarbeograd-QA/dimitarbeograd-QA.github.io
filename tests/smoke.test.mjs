@@ -149,3 +149,41 @@ test('(d) i18n.js can be loaded as text and its EN dictionary has at least 200 k
     `Expected EN dictionary in i18n.js to have at least 200 keys, found ${keysCount}`
   );
 });
+
+test('(e) robots.txt exists and contains Sitemap URL and allow rule', () => {
+  const robotsPath = path.join(REPO_ROOT, 'robots.txt');
+  assert.ok(fs.existsSync(robotsPath), 'robots.txt must exist');
+
+  const content = fs.readFileSync(robotsPath, 'utf8');
+  assert.match(content, /User-agent:\s*\*/i);
+  assert.match(content, /Allow:\s*\//i);
+  assert.match(
+    content,
+    /Sitemap:\s*https:\/\/dimitarbeograd-qa\.github\.io\/sitemap\.xml/i
+  );
+});
+
+test('(f) sitemap.xml exists and lists all public root HTML files', () => {
+  const sitemapPath = path.join(REPO_ROOT, 'sitemap.xml');
+  assert.ok(fs.existsSync(sitemapPath), 'sitemap.xml must exist');
+
+  const content = fs.readFileSync(sitemapPath, 'utf8');
+  assert.match(content, /<urlset\s+xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9">/);
+
+  const htmlFiles = fs
+    .readdirSync(REPO_ROOT)
+    // index.html се обслужва от коренния адрес (/), затова не се дублира в картата
+    .filter((f) => f.endsWith('.html') && f !== 'index.html');
+
+  assert.ok(
+    content.includes('<loc>https://dimitarbeograd-qa.github.io/</loc>'),
+    'sitemap.xml must include the root URL (index.html)'
+  );
+
+  for (const htmlFile of htmlFiles) {
+    assert.ok(
+      content.includes(`https://dimitarbeograd-qa.github.io/${htmlFile}`),
+      `sitemap.xml must include URL for ${htmlFile}`
+    );
+  }
+});
