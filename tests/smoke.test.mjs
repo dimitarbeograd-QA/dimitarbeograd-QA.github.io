@@ -172,7 +172,13 @@ test('(f) sitemap.xml exists and lists all public root HTML files', () => {
 
   const htmlFiles = fs
     .readdirSync(REPO_ROOT)
-    .filter((f) => f.endsWith('.html'));
+    // index.html се обслужва от коренния адрес (/), затова не се дублира в картата
+    .filter((f) => f.endsWith('.html') && f !== 'index.html');
+
+  assert.ok(
+    content.includes('<loc>https://dimitarbeograd-qa.github.io/</loc>'),
+    'sitemap.xml must include the root URL (index.html)'
+  );
 
   for (const htmlFile of htmlFiles) {
     assert.ok(
