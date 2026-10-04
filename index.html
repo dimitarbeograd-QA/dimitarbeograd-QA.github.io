@@ -7,7 +7,7 @@
 <meta name="description" content="DimitTech — персонализирани IT решения, уеб разработка, cloud, AI и киберсигурност. Гр. Лом, България.">
 <meta name="robots" content="index, follow">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://dimittech-offers.dimitar-beograd.workers.dev; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://dimittech-offers.dimitar-beograd.workers.dev https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'self'; form-action 'self';">
 <style>
 @font-face{font-family:'DM Sans';font-style:normal;font-weight:300 500;font-display:swap;src:url(fonts/dm-sans-latin.woff2) format('woff2');}
 @font-face{font-family:'Syne';font-style:normal;font-weight:700 800;font-display:swap;src:url(fonts/syne-latin.woff2) format('woff2');}
@@ -1200,6 +1200,6 @@ try {
 } catch(e) {}
 </script>
 <script src="i18n.js" defer></script>
-<script src="chat-widget.js" data-worker="https://dimittech-offers.dimitar-beograd.workers.dev" defer></script>
+<script src="chat-widget.js" data-worker="https://dimittech-offers.dimitar-beograd.workers.dev" data-turnstile="0x4AAAAAAFNb265V5CTjXRB4" defer></script>
 </body>
 </html>
