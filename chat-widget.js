@@ -3,6 +3,7 @@
 (function () {
   var script = document.currentScript;
   var WORKER = script && script.dataset.worker;
+  var SITEKEY = script && script.dataset.turnstile;
   if (!WORKER) { console.error('chat-widget: липсва data-worker'); return; }
 
   var css = [
@@ -134,13 +135,47 @@
 
   function setBusy(b) { input.disabled = b || finished; send.disabled = b || finished; }
 
+  var tsWidget = null, tsLoading = null;
+  function loadTs() {
+    if (tsLoading) return tsLoading;
+    tsLoading = new Promise(function (res, rej) {
+      if (window.turnstile) return res();
+      var s = document.createElement('script');
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      s.async = true; s.onload = function () { res(); }; s.onerror = function () { tsLoading = null; rej(new Error('ts')); };
+      document.head.appendChild(s);
+    });
+    return tsLoading;
+  }
+  function getToken() {
+    if (!SITEKEY) return Promise.resolve('');
+    return loadTs().then(function () {
+      return new Promise(function (res, rej) {
+        var timer = setTimeout(function () { rej(new Error('ts-timeout')); }, 20000);
+        var done = function (t) { clearTimeout(timer); res(t); };
+        var fail = function () { clearTimeout(timer); rej(new Error('ts-error')); };
+        if (tsWidget === null) {
+          var box = el('div', { class: 'dt-ts' });
+          panel.appendChild(box);
+          tsWidget = window.turnstile.render(box, { sitekey: SITEKEY, execution: 'execute', appearance: 'interaction-only', callback: done, 'error-callback': fail });
+        } else {
+          window.turnstile.remove(tsWidget);
+          var box2 = panel.querySelector('.dt-ts');
+          tsWidget = window.turnstile.render(box2, { sitekey: SITEKEY, execution: 'execute', appearance: 'interaction-only', callback: done, 'error-callback': fail });
+        }
+        window.turnstile.execute(tsWidget);
+      });
+    });
+  }
+
   async function ask() {
     setBusy(true);
     try {
+      var ts = await getToken();
       var r = await fetch(WORKER.replace(/\/$/, '') + '/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: messages, contact: contact, lang: curLang() })
+        body: JSON.stringify({ messages: messages, contact: contact, lang: curLang(), ts: ts })
       });
       var data = await r.json();
       if (!r.ok) { var er = new Error('http'); er.userMsg = data && data.error; throw er; }
