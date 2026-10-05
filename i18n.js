@@ -166,6 +166,7 @@
     "QA Документация": "QA documentation",
     "Детайлни test plan-ове, bug репорти с репродукционни стъпки, screenshots и видеа. Интеграция с Jira, Linear или GitHub Issues.": "Detailed test plans, bug reports with reproduction steps, screenshots and videos. Integration with Jira, Linear or GitHub Issues.",
     "🎁 Безплатни QA шаблони": "🎁 Free QA templates",
+    "📚 Материали DigComp": "📚 DigComp materials",
     "Безплатен QA пакет": "Free QA pack",
     "Шаблони на български: тест план, бъг репорт, тест случаи (Excel), чеклисти за уеб, мобилно и API, и QA речник. Свободен за сваляне и ползване.": "Templates in Bulgarian: test plan, bug report, test cases (Excel), checklists for web, mobile and API, and a QA glossary. Free to download and use.",
     "Свали безплатно (ZIP) ↓": "Download for free (ZIP) ↓",
