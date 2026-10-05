@@ -52,3 +52,14 @@ nav { background: rgba(3,5,10,0.55); border-bottom: 1px solid rgba(255,255,255,0
   border: 1px solid rgba(255,255,255,0.10);
 }
 .service-card:hover, .hero-service-pill:hover, .qa-card:hover, .sec-card:hover { background: transparent !important; border-color: rgba(125,249,255,0.45); }
+
+/* максимална прозрачност: фонът се вижда навсякъде */
+.service-card, .hero-service-pill, .qa-card, .sec-card, .contact-form, .faq-item, .qa-stats, .tech-pill, .remote-how, .remote-services { border-color: rgba(255,255,255,0.07) !important; }
+nav, .topbar, .nav-mobile { background: transparent !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; border-color: rgba(255,255,255,0.06) !important; }
+.nav-mobile.open { background: rgba(3,5,10,0.92) !important; }
+.service-icon, .ri-icon, .ci-icon, .step-num, .qa-tags span, .hero-badge, .remote-badge, .dust-toggle { background: transparent !important; box-shadow: none !important; }
+input, textarea, select { background: transparent !important; }
+.process, .security-section, .remote-section, .qa-section, .contact, footer { background: transparent !important; }
+.btn-outline, .qa-dl { background: transparent; }
+/* горната лента и менюто остават полупрозрачни, за да не се застъпва текстът при скрол */
+nav, .topbar { background: rgba(3,5,10,0.72) !important; }
