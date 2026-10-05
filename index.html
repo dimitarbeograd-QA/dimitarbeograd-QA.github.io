@@ -169,7 +169,7 @@ body::before {
 .dust-on .process, .dust-on .security-section { background: transparent; }
 .dust-on .step-num, .dust-on .sec-card, .dust-on .contact-form input, .dust-on .contact-form select, .dust-on .contact-form textarea { background: rgba(5,10,20,0.25); }
 .dust-on .service-card, .dust-on .hero-service-pill, .dust-on .faq-item, .dust-on .qa-card, .dust-on .contact-form, .dust-on .tech-pill, .dust-on .qa-stats { backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
-.dust-toggle { position: fixed; left: 124px; bottom: 22px; z-index: 98; background: rgba(12,21,38,0.85); color: var(--muted); border: 1px solid var(--border); border-radius: 100px; padding: 6px 12px; font: 600 0.72rem 'DM Sans', sans-serif; cursor: pointer; backdrop-filter: blur(8px); }
+.dust-toggle { position: fixed; left: 14px; bottom: 64px; z-index: 98; background: rgba(12,21,38,0.85); color: var(--muted); border: 1px solid var(--border); border-radius: 100px; padding: 6px 12px; font: 600 0.72rem 'DM Sans', sans-serif; cursor: pointer; backdrop-filter: blur(8px); }
 .dust-toggle:hover { color: var(--accent); border-color: var(--accent); }
 @media (prefers-reduced-motion: reduce) { #dustbg { display: none; } }
 
@@ -563,6 +563,12 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
 .reveal.visible { opacity: 1; transform: none; }
 
 /* RESPONSIVE */
+@media (max-width: 1180px) {
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-burger { display: flex; }
+  .nav-mobile { display: flex; }
+}
 @media (max-width: 900px) {
   .nav-links { display: none; }
   .nav-cta { display: none; }
