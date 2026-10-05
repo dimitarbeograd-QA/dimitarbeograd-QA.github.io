@@ -173,7 +173,7 @@ test('(f) sitemap.xml exists and lists all public root HTML files', () => {
   const htmlFiles = fs
     .readdirSync(REPO_ROOT)
     // index.html се обслужва от коренния адрес (/), затова не се дублира в картата
-    .filter((f) => f.endsWith('.html') && f !== 'index.html');
+    .filter((f) => f.endsWith('.html') && f !== 'index.html' && !/^google[0-9a-f]+\.html$/.test(f)); // файлът за потвърждение на Search Console не е страница
 
   assert.ok(
     content.includes('<loc>https://dimitarbeograd-qa.github.io/</loc>'),
@@ -200,4 +200,17 @@ test('(g) SEO: canonical, Open Graph and valid JSON-LD on index.html', () => {
   const faqCount = (html.match(/<details class="faq-item">/g) || []).length;
   assert.equal(data['@graph'][2].mainEntity.length, faqCount, 'FAQ JSON-LD must match visible FAQ');
   assert.ok(fs.existsSync(path.join(REPO_ROOT, 'og-image.png')));
+});
+
+test('(h) Google Analytics loads only via consent script, CSP allows it, privacy mentions it', () => {
+  const idx = fs.readFileSync(path.join(REPO_ROOT, 'index.html'), 'utf8');
+  const js = fs.readFileSync(path.join(REPO_ROOT, 'analytics.js'), 'utf8');
+  const priv = fs.readFileSync(path.join(REPO_ROOT, 'privacy.html'), 'utf8');
+  assert.ok(!/googletagmanager\.com\/gtag\/js/.test(idx), 'index.html must not load gtag directly');
+  assert.ok(idx.includes('analytics.js'), 'index.html must include analytics.js');
+  assert.ok(idx.includes('https://www.googletagmanager.com'), 'CSP must allow googletagmanager');
+  assert.ok(!/unsafe-eval/.test(idx));
+  assert.ok(/G-8Q2CEZEKSY/.test(js));
+  assert.ok(/granted/.test(js) && /denied/.test(js));
+  assert.ok(/Google Analytics/.test(priv), 'privacy.html must disclose Google Analytics');
 });
