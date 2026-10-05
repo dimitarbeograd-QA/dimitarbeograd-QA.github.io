@@ -60,3 +60,20 @@ nav, .topbar { background: rgba(7,3,15,0.72) !important; backdrop-filter: none !
   .section-title, .contact-info h2 { overflow-wrap: anywhere; }
 }
 @media (prefers-reduced-motion: reduce) { .hero h1, .gradient-text { animation: none; } }
+
+/* чат: киберпънк вид */
+html #dt-btn { border-radius: 0; background: linear-gradient(135deg, var(--accent2), #7A2BFF); color: #fff; box-shadow: none; clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px); }
+html #dt-panel { background: rgba(7,3,15,0.985); border: 1px solid rgba(255,43,214,0.55); border-radius: 0; box-shadow: none; font-family: var(--mono); }
+html #dt-head { background: linear-gradient(90deg, var(--accent2), #7A2BFF); color: #fff; border-radius: 0; text-transform: uppercase; letter-spacing: 0.08em; font-family: var(--mono); }
+html #dt-close { color: #fff; }
+html #dt-note { background: transparent; color: var(--muted); border-bottom: 1px solid rgba(255,43,214,0.3); }
+html #dt-note a { color: var(--accent); }
+html .dt-m { border-radius: 0; font-family: var(--mono); font-size: 13px; }
+html .dt-u { background: linear-gradient(135deg, rgba(255,43,214,0.35), rgba(122,43,255,0.35)); border: 1px solid var(--accent2); color: #fff; }
+html .dt-a { background: transparent; border: 1px solid rgba(0,240,255,0.45); color: var(--text); }
+html #dt-form { border-top: 1px solid rgba(255,43,214,0.3); }
+html #dt-in, html #dt-contact input { background: transparent; border: 1px solid rgba(0,240,255,0.45); border-radius: 0; color: var(--text); font-family: var(--mono); }
+html #dt-in:focus, html #dt-contact input:focus { outline: none; border-color: var(--accent3); }
+html #dt-send, html #dt-go { border-radius: 0; background: linear-gradient(135deg, var(--accent2), #7A2BFF); color: #fff; text-transform: uppercase; letter-spacing: 0.06em; font-family: var(--mono); clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); }
+html #dt-contact label { color: var(--muted); font-family: var(--mono); text-transform: uppercase; letter-spacing: 0.08em; font-size: 11px; }
+html #dt-err { color: var(--danger); }
