@@ -163,6 +163,13 @@ body::before {
   background-size: 60px 60px;
 }
 
+/* ТЕСТ: анимиран фон dust-bg.js (изключва се с бутона долу вляво или ?dust=0) */
+#dustbg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; display: block; pointer-events: none; }
+.dust-on .process, .dust-on .security-section { background: rgba(12,21,38,0.55); }
+.dust-toggle { position: fixed; left: 124px; bottom: 22px; z-index: 98; background: rgba(12,21,38,0.85); color: var(--muted); border: 1px solid var(--border); border-radius: 100px; padding: 6px 12px; font: 600 0.72rem 'DM Sans', sans-serif; cursor: pointer; backdrop-filter: blur(8px); }
+.dust-toggle:hover { color: var(--accent); border-color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { #dustbg { display: none; } }
+
 /* TOP BAR */
 @keyframes topbarSlide { from{opacity:0;transform:translateY(-100%)} to{opacity:1;transform:translateY(0)} }
 @keyframes pulseIcon { 0%,100%{transform:scale(1)} 50%{transform:scale(1.2)} }
@@ -1328,6 +1335,7 @@ try {
 } catch(e) {}
 </script>
 <script src="i18n.js" defer></script>
+<script src="dust-bg.js" defer></script>
 <script src="chat-widget.js" data-worker="https://dimittech-offers.dimitar-beograd.workers.dev" data-turnstile="0x4AAAAAAFNb265V5CTjXRB4" defer></script>
 <script src="analytics.js" defer></script>
 <script src="hit.js" defer></script>
