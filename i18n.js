@@ -20,7 +20,7 @@
     "Тест": "Test",
     "Контакти": "Contact",
     "Свържи се →": "Get in touch →",
-    "Трансформирайте бизнеса си с": "Transform your business with",
+    "Трансформация на бизнеса чрез": "Business transformation through",
     "умни технологии": "smart technology",
     "Персонализирани IT решения, които ускоряват растежа, автоматизират процесите и превръщат данните в конкурентно предимство.": "Custom IT solutions that speed up growth, automate processes and turn data into a competitive advantage.",
     "Услугите ни": "Our services",
