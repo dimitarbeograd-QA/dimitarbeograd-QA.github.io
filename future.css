@@ -63,3 +63,13 @@ input, textarea, select { background: transparent !important; }
 .btn-outline, .qa-dl { background: transparent; }
 /* горната лента и менюто остават полупрозрачни, за да не се застъпва текстът при скрол */
 nav, .topbar { background: rgba(3,5,10,0.72) !important; }
+
+/* единен вид за всички кутии, като в „Сигурност": прозрачни, рамка, тънка светла линия отгоре, икони без плочка */
+.service-card, .hero-service-pill, .qa-card, .sec-card, .contact-form, .faq-item, .qa-stats, .remote-how, .remote-services { border-color: rgba(255,255,255,0.10) !important; position: relative; overflow: hidden; }
+.service-icon, .ri-icon, .ci-icon { border: 0 !important; box-shadow: none !important; background: transparent !important; width: auto; height: auto; }
+.service-card::before, .qa-card::before, .remote-how::before, .remote-services::before, .contact-form::before, .faq-item::before {
+  content: ''; display: block !important; position: absolute; top: 0; left: 0; right: 0; height: 2px; opacity: 0.5; pointer-events: none;
+  background: linear-gradient(90deg, rgba(125,249,255,0.7), transparent) !important; inset: auto; }
+.hero-service-pill::before, .qa-stats::before { display: none !important; }
+.service-icon { display: flex; justify-content: flex-start; align-items: center; width: auto; height: auto; }
+.ri-icon { width: 28px; height: 28px; }
