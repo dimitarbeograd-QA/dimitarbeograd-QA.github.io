@@ -1274,7 +1274,7 @@ function showMsg(type, text) { msg.className='form-msg '+type; msg.textContent=t
 
 /* Адрес на услуга за формуляри — ако се зададе, формата се изпраща без имейл клиент.
    Докато е празен, формата отваря имейл приложението на посетителя (mailto). */
-const FORM_ENDPOINT = '';
+const FORM_ENDPOINT = 'https://dimittech-offers.dimitar-beograd.workers.dev/contact';
 
 form.addEventListener('submit', function(e) {
   e.preventDefault();
@@ -1304,6 +1304,7 @@ form.addEventListener('submit', function(e) {
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(payload)
     }).then(function(r) {
+      if (r.status === 429) { showMsg('error',t('Достигнат лимит. Опитай след 10 минути.')); return; }
       if (!r.ok) throw new Error('HTTP ' + r.status);
       showMsg('success',t('✅ Заявката е изпратена! Ще се свържем до 24 часа.'));
       resetForm();
