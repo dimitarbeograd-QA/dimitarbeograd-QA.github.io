@@ -172,8 +172,9 @@ test('(f) sitemap.xml exists and lists all public root HTML files', () => {
 
   const htmlFiles = fs
     .readdirSync(REPO_ROOT)
+    // experiment.html е временна страница с noindex и не влиза в картата
     // index.html се обслужва от коренния адрес (/), затова не се дублира в картата
-    .filter((f) => f.endsWith('.html') && f !== 'index.html' && !/^google[0-9a-f]+\.html$/.test(f)); // файлът за потвърждение на Search Console не е страница
+    .filter((f) => f.endsWith('.html') && f !== 'index.html' && f !== 'experiment.html' && !/^google[0-9a-f]+\.html$/.test(f)); // файлът за потвърждение на Search Console не е страница
 
   assert.ok(
     content.includes('<loc>https://dimitarbeograd-qa.github.io/</loc>'),
