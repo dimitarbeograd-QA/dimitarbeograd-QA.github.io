@@ -62,3 +62,18 @@ nav, .topbar { border-bottom: 1px solid var(--accent2); }
   .hero-actions { gap: 10px; }
   .section-title, .contact-info h2 { overflow-wrap: anywhere; }
 }
+
+/* без размазване: резки букви, без сенки/филтри върху текста */
+body::after { display: none; }
+.hero h1 { text-shadow: none; }
+.gradient-text { filter: none; }
+.dust-on .service-card, .dust-on .hero-service-pill, .dust-on .faq-item, .dust-on .qa-card, .dust-on .contact-form, .dust-on .tech-pill, .dust-on .qa-stats { backdrop-filter: none; -webkit-backdrop-filter: none; }
+.service-icon .ico, .pill-icon .ico, .sec-card-icon .ico, .qa-icon .ico, .ri-icon .ico { filter: none; }
+.nav-links a:hover { text-shadow: none; }
+@keyframes glitch {
+  0%, 100% { transform: none; clip-path: none; }
+  12% { transform: translate(-4px, 1px) skewX(-6deg); clip-path: inset(10% 0 55% 0); }
+  24% { transform: translate(5px, -1px); clip-path: inset(55% 0 12% 0); }
+  36% { transform: translate(-2px, 0) skewX(4deg); clip-path: inset(30% 0 40% 0); }
+  48% { transform: none; clip-path: none; }
+}
