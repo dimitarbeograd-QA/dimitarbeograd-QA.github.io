@@ -45,3 +45,10 @@ nav { background: rgba(3,5,10,0.55); border-bottom: 1px solid rgba(255,255,255,0
 .dust-toggle, #dt-lang { border-radius: 100px !important; }
 @media (max-width: 640px) { .hero h1 { font-size: clamp(1.8rem, 8.4vw, 2.6rem); overflow-wrap: anywhere; } .btn-primary, .btn-outline { padding: 11px 16px; font-size: 0.8rem; white-space: normal; text-align: center; } }
 @media (prefers-reduced-motion: reduce) { .gradient-text { animation: none; } }
+
+/* всички текстови кутии: напълно прозрачни, само тънка рамка (като „Сигурност") */
+.service-card, .hero-service-pill, .qa-card, .sec-card, .contact-form, .faq-item, .qa-stats, .tech-pill, .remote-how, .remote-services, .remote-card, .remote-box {
+  background: transparent !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(255,255,255,0.10);
+}
+.service-card:hover, .hero-service-pill:hover, .qa-card:hover, .sec-card:hover { background: transparent !important; border-color: rgba(125,249,255,0.45); }
