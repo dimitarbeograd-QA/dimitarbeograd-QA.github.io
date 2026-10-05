@@ -169,6 +169,7 @@
     "Безплатен QA пакет": "Free QA pack",
     "Шаблони на български: тест план, бъг репорт, тест случаи (Excel), чеклисти за уеб, мобилно и API, и QA речник. Свободен за сваляне и ползване.": "Templates in Bulgarian: test plan, bug report, test cases (Excel), checklists for web, mobile and API, and a QA glossary. Free to download and use.",
     "Свали безплатно (ZIP) ↓": "Download for free (ZIP) ↓",
+    "Материали за DigComp (нива 1-8) →": "DigComp materials (levels 1-8) →",
     "Отдалечена помощ": "Remote help",
     "решение за минути": "a solution in minutes",
     "Без чакане, без посещение на място. Свързваме се с твоя компютър или сървър и решаваме проблема в реално време — от всяка точка на света.": "No waiting, no on-site visit. We connect to your computer or server and solve the problem in real time — from anywhere in the world.",
