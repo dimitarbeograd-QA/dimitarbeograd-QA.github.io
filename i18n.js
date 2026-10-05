@@ -207,7 +207,7 @@
     "Работим в работно и извънработно време. За спешни случаи — незабавна помощ.": "We work during and outside business hours. For urgent cases — immediate help.",
     "📱 Обади се сега": "📱 Call now",
     "📧 Пиши ни": "📧 Email us",
-    "Нека поговорим за проекта ти": "Let's talk about your project",
+    "Нека обсъдим вашия проект": "Let's discuss your project",
     "Попълни формата и ще се свържем с теб до 24 часа за безплатна консултация.": "Fill in the form and we will get back to you within 24 hours for a free consultation.",
     "Гр. Лом, България": "Lom, Bulgaria",
     "Име": "Name",
