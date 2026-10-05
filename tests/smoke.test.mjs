@@ -187,3 +187,17 @@ test('(f) sitemap.xml exists and lists all public root HTML files', () => {
     );
   }
 });
+
+test('(g) SEO: canonical, Open Graph and valid JSON-LD on index.html', () => {
+  const html = fs.readFileSync(path.join(REPO_ROOT, 'index.html'), 'utf8');
+  assert.match(html, /<link rel="canonical" href="https:\/\/dimitarbeograd-qa\.github\.io\/">/);
+  assert.match(html, /property="og:image" content="https:\/\/dimitarbeograd-qa\.github\.io\/og-image\.png"/);
+  const m = html.match(/<script type="application\/ld\+json">\s*([\s\S]*?)<\/script>/);
+  assert.ok(m, 'JSON-LD block should exist');
+  const data = JSON.parse(m[1]);
+  const types = data['@graph'].map((x) => x['@type']);
+  assert.deepEqual(types, ['ProfessionalService', 'WebSite', 'FAQPage']);
+  const faqCount = (html.match(/<details class="faq-item">/g) || []).length;
+  assert.equal(data['@graph'][2].mainEntity.length, faqCount, 'FAQ JSON-LD must match visible FAQ');
+  assert.ok(fs.existsSync(path.join(REPO_ROOT, 'og-image.png')));
+});
