@@ -359,7 +359,8 @@ nav {
   transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
 }
 .hero-service-pill:hover { border-color: rgba(0,212,255,0.4); transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,0,0,0.3); }
-.pill-icon { font-size: 1.2rem; line-height: 1; }
+.pill-icon { line-height: 1; margin-bottom: 4px; }
+.pill-icon .ico { width: 24px; height: 24px; display: block; filter: drop-shadow(0 0 5px rgba(92,240,255,0.3)); }
 .pill-name { font-family: 'Syne', sans-serif; font-size: 0.77rem; font-weight: 700; color: var(--text); line-height: 1.3; }
 .pill-desc { font-size: 0.69rem; color: var(--muted); line-height: 1.45; font-weight: 300; }
 /* hero-more-link removed */
@@ -382,12 +383,13 @@ section { position: relative; z-index: 1; }
 .service-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,212,255,0.04), transparent); opacity: 0; transition: opacity 0.3s; }
 .service-card:hover { transform: translateY(-5px); border-color: rgba(0,212,255,0.3); box-shadow: 0 16px 48px rgba(0,0,0,0.35); }
 .service-card:hover::before { opacity: 1; }
-.service-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 16px; }
-.icon-blue{background:rgba(0,102,255,0.15)} .icon-cyan{background:rgba(0,212,255,0.12)}
-.icon-purple{background:rgba(123,47,255,0.15)} .icon-green{background:rgba(0,255,136,0.12)}
-.icon-orange{background:rgba(255,130,0,0.12)} .icon-pink{background:rgba(255,0,128,0.12)}
-.icon-teal{background:rgba(0,210,180,0.15)} .icon-remote{background:rgba(255,200,0,0.12)}
-.icon-concept{background:rgba(180,100,255,0.15)}
+.service-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; position: relative;
+  background: linear-gradient(145deg, rgba(92,240,255,0.13), rgba(139,92,255,0.10));
+  border: 1px solid rgba(92,240,255,0.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 10px 26px -10px rgba(46,139,255,0.65);
+  transition: box-shadow .3s, border-color .3s, transform .3s; }
+.service-icon .ico { width: 26px; height: 26px; filter: drop-shadow(0 0 6px rgba(92,240,255,0.35)); }
+.service-card:hover .service-icon { border-color: rgba(92,240,255,0.5); box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 12px 32px -8px rgba(46,139,255,0.9); transform: translateY(-2px); }
 .service-card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
 .service-card > p { color: var(--muted); font-size: 0.83rem; line-height: 1.65; font-weight: 300; margin-bottom: 14px; }
 .service-features { list-style: none; margin-bottom: 18px; display: flex; flex-direction: column; gap: 6px; }
@@ -590,6 +592,8 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2064%2064%22%3E%3Crect%20width=%2264%22%20height=%2264%22%20rx=%2214%22%20fill=%22%230b1220%22/%3E%3Cpath%20d=%22M16%2014h18c11%200%2018%208%2018%2018s-7%2018-18%2018H16z%22%20fill=%22none%22%20stroke=%22%2300d2b4%22%20stroke-width=%227%22%20stroke-linejoin=%22round%22/%3E%3C/svg%3E">
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><linearGradient id="ig" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#5CF0FF"/><stop offset=".55" stop-color="#2E8BFF"/><stop offset="1" stop-color="#8B5CFF"/></linearGradient><symbol id="i-web" viewBox="0 0 24 24" fill="none" stroke="url(#ig)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2.2"/><path d="M3 8.5h18M9 21h6M12 17v4M10.2 11.2 8.6 12.8l1.6 1.6M13.8 11.2l1.6 1.6-1.6 1.6"/></symbol><symbol id="i-mobile" viewBox="0 0 24 24" fill="none" stroke="url(#ig)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.6"/><path d="M10.5 18.5h3"/></symbol><symbol id="i-cloud" viewBox="0 0 24 24" fill="none" stroke="url(#ig)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7.5 18.5A4.5 4.5 0 0 1 7 9.6a5.5 5.5 0 0 1 10.6-.7 4.8 4.8 0 0 1-.6 9.6z"/></symbol><symbol id="i-ai" viewBox="0 0 24 24" fill="none" stroke="url(#ig)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2.6"/><path d="M12 9.5v5M9.5 12h5M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="url(#ig)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5.5c0 4.5-3 8-7 9.5-4-1.5-7-5-7-9.5V6z"/><path d="M9 12l2.2 2.2L15.5 10"/></symbol><symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="url(#ig)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16M8 16v-4M12 16V8M16 16v-6"/></symbol><symbol id="i-flask" viewBox="0 0 24 24" fill="none" stroke="url(#ig)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3h5M10.5 3v6L5 19a1.6 1.6 0 0 0 1.4 2.3h11.2A1.6 1.6 0 0 0 19 19l-5.5-10V3M7.6 15h8.8"/><circle cx="11" cy="18" r=".6"/></symbol><symbol id="i-remote" viewBox="0 0 24 24" fill="none" stroke="url(#ig)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2.2"/><path d="M9 20h6M12 16v4M10.5 7.5l4 3.6-1.8.3 1 2.1-1 .4-1-2.1-1.4 1.2z"/></symbol><symbol id="i-idea" viewBox="0 0 24 24" fill="none" stroke="url(#ig)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></symbol></defs></svg>
+
 
 
 <!-- TOP CONTACT BAR -->
@@ -701,15 +705,15 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
       </div>
     </div>
     <div class="hero-services-preview">
-      <a href="#services" class="hero-service-pill"><div class="pill-icon">🖥️</div><div class="pill-name">Уеб разработка</div><div class="pill-desc">Сайтове и уеб приложения</div></a>
-      <a href="#services" class="hero-service-pill"><div class="pill-icon">📱</div><div class="pill-name">Мобилни приложения</div><div class="pill-desc">iOS и Android</div></a>
-      <a href="#services" class="hero-service-pill"><div class="pill-icon">☁️</div><div class="pill-name">Cloud решения</div><div class="pill-desc">AWS, Azure, GCP</div></a>
-      <a href="#services" class="hero-service-pill"><div class="pill-icon">🤖</div><div class="pill-name">AI & Автоматизация</div><div class="pill-desc">Умни процеси</div></a>
-      <a href="#services" class="hero-service-pill"><div class="pill-icon">🔒</div><div class="pill-name">Киберсигурност</div><div class="pill-desc">Защита и мониторинг</div></a>
-      <a href="#services" class="hero-service-pill"><div class="pill-icon">📊</div><div class="pill-name">IT Консултации</div><div class="pill-desc">Стратегия и трансформация</div></a>
-      <a href="#services" class="hero-service-pill"><div class="pill-icon">🧪</div><div class="pill-name">QA Тестване</div><div class="pill-desc">Автоматизирано и ръчно</div></a>
-      <a href="#services" class="hero-service-pill"><div class="pill-icon">🖱️</div><div class="pill-name">Remote Assistance</div><div class="pill-desc">Отдалечена поддръжка 24/7</div></a>
-      <a href="#services" class="hero-service-pill"><div class="pill-icon">💡</div><div class="pill-name">Бизнес концепция</div><div class="pill-desc">От идея до готов план</div></a>
+      <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-web"/></svg></div><div class="pill-name">Уеб разработка</div><div class="pill-desc">Сайтове и уеб приложения</div></a>
+      <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mobile"/></svg></div><div class="pill-name">Мобилни приложения</div><div class="pill-desc">iOS и Android</div></a>
+      <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cloud"/></svg></div><div class="pill-name">Cloud решения</div><div class="pill-desc">AWS, Azure, GCP</div></a>
+      <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ai"/></svg></div><div class="pill-name">AI & Автоматизация</div><div class="pill-desc">Умни процеси</div></a>
+      <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></div><div class="pill-name">Киберсигурност</div><div class="pill-desc">Защита и мониторинг</div></a>
+      <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg></div><div class="pill-name">IT Консултации</div><div class="pill-desc">Стратегия и трансформация</div></a>
+      <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-flask"/></svg></div><div class="pill-name">QA Тестване</div><div class="pill-desc">Автоматизирано и ръчно</div></a>
+      <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-remote"/></svg></div><div class="pill-name">Remote Assistance</div><div class="pill-desc">Отдалечена поддръжка 24/7</div></a>
+      <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-idea"/></svg></div><div class="pill-name">Бизнес концепция</div><div class="pill-desc">От идея до готов план</div></a>
     </div>
   </div>
 </section>
@@ -723,7 +727,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
     <div class="services-grid">
 
       <div class="service-card reveal">
-        <div class="service-icon icon-blue">🖥️</div>
+        <div class="service-icon icon-blue"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-web"/></svg></div>
         <h3>Уеб разработка</h3>
         <p>Персонализирани уеб приложения и корпоративни сайтове — бързи, сигурни и мащабируеми. От лендинг до SaaS платформа.</p>
         <ul class="service-features">
@@ -738,7 +742,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
       </div>
 
       <div class="service-card reveal">
-        <div class="service-icon icon-cyan">📱</div>
+        <div class="service-icon icon-cyan"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mobile"/></svg></div>
         <h3>Мобилни приложения</h3>
         <p>Native и cross-platform приложения за iOS и Android с изключително потребителско изживяване и висока конверсия.</p>
         <ul class="service-features">
@@ -753,7 +757,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
       </div>
 
       <div class="service-card reveal">
-        <div class="service-icon icon-purple">☁️</div>
+        <div class="service-icon icon-purple"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cloud"/></svg></div>
         <h3>Cloud решения</h3>
         <p>Проектираме и управляваме облачна инфраструктура с автоматично мащабиране и оптимизирани разходи.</p>
         <ul class="service-features">
@@ -768,7 +772,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
       </div>
 
       <div class="service-card reveal">
-        <div class="service-icon icon-green">🤖</div>
+        <div class="service-icon icon-green"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ai"/></svg></div>
         <h3>AI & Автоматизация</h3>
         <p>Интегрираме изкуствен интелект и автоматизираме бизнес процеси. Умни системи, които работят вместо теб денонощно.</p>
         <ul class="service-features">
@@ -783,7 +787,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
       </div>
 
       <div class="service-card reveal">
-        <div class="service-icon icon-orange">🔒</div>
+        <div class="service-icon icon-orange"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></div>
         <h3>Киберсигурност</h3>
         <p>Многослойна защита на данните и системите ти. Намираме уязвимостите преди хакерите и изграждаме трайна сигурност.</p>
         <ul class="service-features">
@@ -797,7 +801,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
       </div>
 
       <div class="service-card reveal">
-        <div class="service-icon icon-pink">📊</div>
+        <div class="service-icon icon-pink"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg></div>
         <h3>IT Консултации</h3>
         <p>Правилните технологични решения без загубени пари. Анализираме IT статуса ти и изграждаме ясна пътна карта.</p>
         <ul class="service-features">
@@ -812,7 +816,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
       </div>
 
       <div class="service-card reveal">
-        <div class="service-icon icon-teal">🧪</div>
+        <div class="service-icon icon-teal"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-flask"/></svg></div>
         <h3>QA Тестване</h3>
         <p>Намираме грешките преди клиентите ти. Комплексно тестване на уеб и мобилни приложения — ръчно и автоматизирано, за безупречно потребителско изживяване.</p>
         <ul class="service-features">
@@ -827,7 +831,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
       </div>
 
       <div class="service-card reveal">
-        <div class="service-icon icon-remote">🖱️</div>
+        <div class="service-icon icon-remote"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-remote"/></svg></div>
         <h3>Remote Assistance</h3>
         <p>Бърза отдалечена техническа помощ без нужда от посещение на място. Свързваме се с твоя компютър или сървър за минути и решаваме проблема в реално време.</p>
         <ul class="service-features">
@@ -842,7 +846,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
       </div>
 
       <div class="service-card reveal">
-        <div class="service-icon icon-concept">💡</div>
+        <div class="service-icon icon-concept"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-idea"/></svg></div>
         <h3>Създаване на концепция</h3>
         <p>Превръщаме твоята идея в ясна, работеща концепция за продукт или бизнес. От първоначална визия до детайлен план, готов за реализация и привличане на инвеститори.</p>
         <ul class="service-features">
