@@ -255,8 +255,8 @@ nav {
   border-bottom: 1px solid var(--border);
   transition: top 0.3s;
 }
-@media (max-width: 640px) { nav { top: var(--topbar-h, 73px); } }
-@media (max-width: 640px) { .nav-mobile { top: calc(var(--topbar-h, 73px) + 60px); } }
+@media (max-width: 640px) { nav { top: 83px; } }
+@media (max-width: 640px) { .nav-mobile { top: 143px; } }
 .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 10px; z-index: 101; }
 .logo svg { flex-shrink: 0; }
 .logo-wordmark { display: flex; flex-direction: column; line-height: 1; }
@@ -317,7 +317,7 @@ nav {
   font-size: 1.1rem !important;
   box-shadow: 0 0 30px rgba(0,102,255,0.3);
 }
-@media (max-width: 640px) { .nav-mobile { top: calc(var(--topbar-h, 73px) + 60px); justify-content: flex-start; overflow-y: auto; padding: 12px 0 140px; gap: 2px; } .nav-mobile a { font-size: 1.2rem; padding: 9px 24px; } }
+@media (max-width: 640px) { .nav-mobile { top: 143px; justify-content: flex-start; overflow-y: auto; padding: 12px 0 140px; gap: 2px; } .nav-mobile a { font-size: 1.2rem; padding: 9px 24px; } }
 .nav-mobile-divider { width: 40px; height: 1px; background: var(--border); margin: 8px 0; }
 
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
@@ -350,8 +350,7 @@ nav {
 
 .hero h1 {
   font-family: 'Syne', sans-serif;
-  font-size: clamp(1.55rem, 7.4vw, 3.8rem);
-  overflow-wrap: break-word; hyphens: auto;
+  font-size: clamp(1.55rem, 7.4vw, 3.8rem); overflow-wrap: break-word;
   font-weight: 800; line-height: 1.1; letter-spacing: -0.03em;
   margin-bottom: 16px; animation: fadeUp 0.7s ease 0.1s both;
 }
@@ -464,7 +463,7 @@ section { position: relative; z-index: 1; }
 .contact { padding: 60px 0 80px; }
 .contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
 .contact-grid > * { min-width: 0; }
-.contact-info h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.4rem, 6vw, 2rem); overflow-wrap: break-word; text-wrap: balance; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
+.contact-info h2 { font-family: 'Syne', sans-serif; font-size: clamp(1.4rem, 6vw, 2rem); overflow-wrap: break-word; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 12px; }
 .contact-info > p { color: var(--muted); font-weight: 300; line-height: 1.7; margin-bottom: 28px; font-size: 0.92rem; }
 .contact-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 0.88rem; color: var(--muted); }
 .contact-item a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
@@ -597,7 +596,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
   .nav-mobile { display: flex; }
   .hero-inner { grid-template-columns: minmax(0, 1fr); }
   .hero-services-preview { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .process-steps { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .process-steps { grid-template-columns: 1fr 1fr; }
   .process-steps::before { display: none; }
   .contact-grid { grid-template-columns: minmax(0, 1fr); }
   .form-row { grid-template-columns: minmax(0, 1fr); }
@@ -607,28 +606,6 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
   .hero-services-preview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero-stats { gap: 20px; flex-wrap: wrap; }
 }
-
-/* MOBILE FIXES: no horizontal overflow, compact floating buttons, header gap */
-.hero p, .section-sub, .contact-info > p { overflow-wrap: break-word; }
-.contact-item { min-width: 0; }
-.contact-item a, .contact-item span { min-width: 0; overflow-wrap: anywhere; }
-@media (max-width: 640px) {
-  .contact-form { padding: 22px 18px; }
-  html #dt-lang { left: 10px; bottom: 10px; font-size: 11px; opacity: .92; }
-  html #dt-lang button { padding: 7px 10px; }
-  html #dt-btn { right: 10px; bottom: 10px; width: 48px; height: 48px; font-size: 20px; }
-  .dust-toggle { left: 10px; bottom: 50px; padding: 5px 10px; font-size: 0.68rem; opacity: .92; }
-  .dust-menu { left: 10px; bottom: 86px; }
-  /* floating buttons must not cover the last form fields / footer */
-  .contact { padding-bottom: 120px; }
-  footer { padding-bottom: 110px; }
-}
-/* anchor links must not hide section headings under the fixed header */
-section[id], div[id].container { scroll-margin-top: calc(var(--topbar-h, 42px) + 70px); }
-/* hide floating widgets while the user types in a form */
-body:has(input:focus, textarea:focus, select:focus) #dt-lang,
-body:has(input:focus, textarea:focus, select:focus) #dt-btn,
-body:has(input:focus, textarea:focus, select:focus) .dust-toggle { opacity: 0; pointer-events: none; transition: opacity .15s; }
 </style>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2064%2064%22%3E%3Crect%20width=%2264%22%20height=%2264%22%20rx=%2214%22%20fill=%22%230b1220%22/%3E%3Cpath%20d=%22M16%2014h18c11%200%2018%208%2018%2018s-7%2018-18%2018H16z%22%20fill=%22none%22%20stroke=%22%2300d2b4%22%20stroke-width=%227%22%20stroke-linejoin=%22round%22/%3E%3C/svg%3E">
 <script>try{var _t=localStorage.getItem('dtTheme');if(_t==='future'||_t==='cyber'){var _l=document.createElement('link');_l.rel='stylesheet';_l.id='dt-theme-css';_l.href=(_t==='future'?'future.css':'cyber2.css')+'?v=2';document.head.appendChild(_l)}}catch(e){}</script>
@@ -1254,17 +1231,6 @@ body:has(input:focus, textarea:focus, select:focus) .dust-toggle { opacity: 0; p
 
 /* Превод на низове (i18n.js се зарежда след това; до тогава връща оригинала) */
 const t = s => (window.DT_I18N ? window.DT_I18N.t(s) : s);
-
-/* Реална височина на топбара -> --topbar-h (без процеп между топбар и меню) */
-(function () {
-  const bar = document.querySelector('.topbar');
-  if (!bar) return;
-  const setH = () => document.documentElement.style.setProperty('--topbar-h', bar.offsetHeight + 'px');
-  setH();
-  window.addEventListener('resize', setH);
-  window.addEventListener('load', setH);
-  if (window.ResizeObserver) new ResizeObserver(setH).observe(bar);
-})();
 
 /* Hamburger menu */
 const burger = document.getElementById('navBurger');
