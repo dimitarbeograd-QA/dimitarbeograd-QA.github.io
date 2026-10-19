@@ -83,7 +83,7 @@
      "name": "Какви услуги предлагате?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "Предлагаме персонализирани IT решения, включително изработка на уебсайтове и уеб приложения, мобилни приложения (iOS и Android), cloud решения, AI автоматизации, киберсигурност, IT консултации, QA тестване и отдалечена поддръжка (Remote Assistance)."
+      "text": "Предлагаме персонализирани IT решения, включително изработка на уебсайтове и уеб приложения, cloud решения, AI автоматизации, киберсигурност, IT консултации, QA тестване и отдалечена поддръжка (Remote Assistance)."
      }
     },
     {
@@ -177,7 +177,6 @@ body::before {
 .dust-menu button:hover { color: var(--accent); background: rgba(255,255,255,0.05); }
 .dust-menu button[aria-checked="true"] { color: #fff; }
 .dust-menu button[aria-checked="true"]::before { content: '● '; color: var(--accent); }
-@media (prefers-reduced-motion: reduce) { #dustbg { display: none; } }
 
 .ico { width: 1em; height: 1em; fill: none; stroke: url(#ig); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.15em; flex-shrink: 0; }
 .btn-primary .ico, .nav-cta .ico { stroke: currentColor; }
@@ -679,7 +678,6 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
     <li><a href="#services">Услуги</a></li>
     <li><a href="#process">Процес</a></li>
     <li><a href="#faq">FAQ</a></li>
-    <li><a href="#tech">Технологии</a></li>
     <li><a href="#security">Сигурност</a></li>
     <li><a href="#qa">QA</a></li>
     <li><a href="test-digitalni-kompetentnosti.html">Тест</a></li>
@@ -698,7 +696,6 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
   <a href="#services" class="nav-mobile-link">Услуги</a>
   <a href="#process" class="nav-mobile-link">Процес</a>
   <a href="#faq" class="nav-mobile-link">FAQ</a>
-  <a href="#tech" class="nav-mobile-link">Технологии</a>
   <a href="#security" class="nav-mobile-link">Сигурност</a>
   <a href="#qa" class="nav-mobile-link">QA</a>
   <a href="test-digitalni-kompetentnosti.html" class="nav-mobile-link">Тест</a>
@@ -725,13 +722,12 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
     </div>
     <div class="hero-services-preview">
       <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-web"/></svg></div><div class="pill-name">Уеб разработка</div><div class="pill-desc">Сайтове и уеб приложения</div></a>
-      <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mobile"/></svg></div><div class="pill-name">Мобилни приложения</div><div class="pill-desc">iOS и Android</div></a>
       <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cloud"/></svg></div><div class="pill-name">Cloud решения</div><div class="pill-desc">AWS, Azure, GCP</div></a>
       <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-ai"/></svg></div><div class="pill-name">AI & Автоматизация</div><div class="pill-desc">Умни процеси</div></a>
       <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-shield"/></svg></div><div class="pill-name">Киберсигурност</div><div class="pill-desc">Защита и мониторинг</div></a>
       <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-chart"/></svg></div><div class="pill-name">IT Консултации</div><div class="pill-desc">Стратегия и трансформация</div></a>
       <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-flask"/></svg></div><div class="pill-name">QA Тестване</div><div class="pill-desc">Автоматизирано и ръчно</div></a>
-      <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-remote"/></svg></div><div class="pill-name">Remote Assistance</div><div class="pill-desc">Отдалечена поддръжка 24/7</div></a>
+      <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-remote"/></svg></div><div class="pill-name">Remote Assistance</div><div class="pill-desc">Отдалечена поддръжка</div></a>
       <a href="#services" class="hero-service-pill"><div class="pill-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-idea"/></svg></div><div class="pill-name">Бизнес концепция</div><div class="pill-desc">От идея до готов план</div></a>
     </div>
   </div>
@@ -762,31 +758,14 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
       </div>
 
       <div class="service-card reveal">
-        <div class="service-icon icon-cyan"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mobile"/></svg></div>
-        <h3>Мобилни приложения</h3>
-        <p>Native и cross-platform приложения за iOS и Android с изключително потребителско изживяване и висока конверсия.</p>
-        <ul class="service-features">
-          <li>React Native & Flutter разработка</li>
-          <li>Native iOS (Swift) и Android (Kotlin)</li>
-          <li>Push известия и офлайн режим</li>
-          <li>Интеграция с платежни системи</li>
-          <li>App Store & Google Play публикуване</li>
-          <li>Analytics и crash reporting</li>
-        </ul>
-        <a href="#contact" class="service-link">Искам оферта →</a>
-      </div>
-
-      <div class="service-card reveal">
         <div class="service-icon icon-purple"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-cloud"/></svg></div>
         <h3>Cloud решения</h3>
         <p>Проектираме и управляваме облачна инфраструктура с автоматично мащабиране и оптимизирани разходи.</p>
         <ul class="service-features">
           <li>AWS / Azure / GCP архитектура</li>
-          <li>Kubernetes & Docker контейнеризация</li>
           <li>CI/CD pipeline автоматизация</li>
           <li>Disaster recovery и backup стратегии</li>
           <li>Cloud cost оптимизация</li>
-          <li>24/7 мониторинг и алертинг</li>
         </ul>
         <a href="#contact" class="service-link">Искам оферта →</a>
       </div>
@@ -838,7 +817,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
       <div class="service-card reveal">
         <div class="service-icon icon-teal"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-flask"/></svg></div>
         <h3>QA Тестване</h3>
-        <p>Намираме грешките преди клиентите ти. Комплексно тестване на уеб и мобилни приложения — ръчно и автоматизирано, за безупречно потребителско изживяване.</p>
+        <p>Намираме грешките преди клиентите ти. Комплексно тестване на уеб приложения — ръчно и автоматизирано, за безупречно потребителско изживяване.</p>
         <ul class="service-features">
           <li>Функционално и регресионно тестване</li>
           <li>Автоматизирано тестване (Selenium, Cypress)</li>
@@ -860,7 +839,6 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
           <li>Отстраняване на вируси и зловреден код</li>
           <li>Поддръжка на Windows, macOS и Linux</li>
           <li>Помощ за малки и средни бизнеси</li>
-          <li>Реакция до 30 минути при критични проблеми</li>
         </ul>
         <a href="#contact" class="service-link">Искам помощ →</a>
       </div>
@@ -910,7 +888,7 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
           <svg class="faq-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
         </summary>
         <div class="faq-content">
-          Предлагаме персонализирани IT решения, включително изработка на уебсайтове и уеб приложения, мобилни приложения (iOS и Android), cloud решения, AI автоматизации, киберсигурност, IT консултации, QA тестване и отдалечена поддръжка (Remote Assistance).
+          Предлагаме персонализирани IT решения, включително изработка на уебсайтове и уеб приложения, cloud решения, AI автоматизации, киберсигурност, IT консултации, QA тестване и отдалечена поддръжка (Remote Assistance).
         </div>
       </details>
 
@@ -967,31 +945,6 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
   </div>
 </section>
 
-<!-- TECH -->
-<section class="tech" id="tech">
-  <div class="container">
-    <span class="section-label reveal">Стек</span>
-    <h2 class="section-title reveal">Технологии, на които можеш да разчиташ</h2>
-    <div class="tech-grid reveal">
-      <span class="tech-pill"><span class="tech-dot"></span>React</span>
-      <span class="tech-pill"><span class="tech-dot"></span>Node.js</span>
-      <span class="tech-pill"><span class="tech-dot"></span>Python</span>
-      <span class="tech-pill"><span class="tech-dot"></span>TypeScript</span>
-      <span class="tech-pill"><span class="tech-dot"></span>AWS</span>
-      <span class="tech-pill"><span class="tech-dot"></span>Azure</span>
-      <span class="tech-pill"><span class="tech-dot"></span>Docker</span>
-      <span class="tech-pill"><span class="tech-dot"></span>Kubernetes</span>
-      <span class="tech-pill"><span class="tech-dot"></span>PostgreSQL</span>
-      <span class="tech-pill"><span class="tech-dot"></span>MongoDB</span>
-      <span class="tech-pill"><span class="tech-dot"></span>Next.js</span>
-      <span class="tech-pill"><span class="tech-dot"></span>Flutter</span>
-      <span class="tech-pill"><span class="tech-dot"></span>GraphQL</span>
-      <span class="tech-pill"><span class="tech-dot"></span>TensorFlow</span>
-      <span class="tech-pill"><span class="tech-dot"></span>OpenAI API</span>
-      <span class="tech-pill"><span class="tech-dot"></span>Terraform</span>
-    </div>
-  </div>
-</section>
 
 <!-- SECURITY -->
 <section class="security-section" id="security">
@@ -1045,9 +998,9 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
           <span class="qa-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bolt"/></svg></span>
           <h4>Performance тестване</h4>
         </div>
-        <p>Load тестване с JMeter и k6. Засичаме bottleneck-и преди пускане в production. Целим Core Web Vitals резултати над 90.</p>
+        <p>Проверка на скоростта на уеб страниците с Lighthouse. Целим Core Web Vitals резултати над 90.</p>
         <div class="qa-tags">
-          <span>JMeter</span><span>k6</span><span>Lighthouse</span>
+          <span>Lighthouse</span><span>Core Web Vitals</span>
         </div>
       </div>
 
@@ -1067,9 +1020,9 @@ footer { border-top: 1px solid var(--border); padding: 28px 5%; display: flex; a
           <span class="qa-icon"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-mobile"/></svg></span>
           <h4>Cross-platform тестване</h4>
         </div>
-        <p>Тестване на реални устройства и BrowserStack. iOS, Android, Chrome, Firefox, Safari, Edge — гарантираме еднакво изживяване навсякъде.</p>
+        <p>Проверка как се държи сайтът в Chrome, Firefox и Edge и на различни размери на екрана — компютър, таблет и телефон.</p>
         <div class="qa-tags">
-          <span>BrowserStack</span><span>iOS</span><span>Android</span>
+          <span>Chrome</span><span>Firefox</span><span>Responsive</span>
         </div>
       </div>
 
